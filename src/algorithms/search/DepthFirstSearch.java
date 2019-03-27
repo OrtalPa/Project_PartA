@@ -5,6 +5,8 @@ import algorithms.mazeGenerators.Maze;
 import java.util.ArrayList;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
+    //LLLLL
+
 
    // Stack<AState> stackOfNodes;
     AState startPoint;
