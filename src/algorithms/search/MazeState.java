@@ -33,6 +33,8 @@ public class MazeState extends  AState {
         this.Priority = Priority;
     }
 
+
+
     /**
      * Returns the index of the row
      * @return
@@ -62,12 +64,14 @@ public class MazeState extends  AState {
 
     /**
      *
-     * @param parent
+     * @param parent the parents to set for the state
      */
+    @Override
     public void setParent(AState parent) {
-        if(parent instanceof  MazeState){
+        if (parent instanceof MazeState) {
             this.parent = parent;
         }
+
     }
 
     /**

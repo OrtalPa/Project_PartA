@@ -21,4 +21,6 @@ public interface ISearchable {
 
     //The function returns the end point
     AState getEnd();
+
+    void setStateAsVisited(AState state);
 }

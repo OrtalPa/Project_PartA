@@ -55,7 +55,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
         Position end = new Position(i,j);
 
-        testMaze(maze, start, end);
+    //    testMaze(maze, start, end);
 
         //randomly put walls
         for(i = 0 ; i < row; i++)
