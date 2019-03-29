@@ -7,6 +7,10 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int row, int column) {
 
+        if(row < 0 || column < 0 ){
+            return null;
+        }
+
         /*
         * 1. find random entry
         * 2. find random path in maze until getting to the other side (?)

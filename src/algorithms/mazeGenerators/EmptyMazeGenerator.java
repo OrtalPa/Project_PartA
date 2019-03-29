@@ -13,8 +13,13 @@ public class EmptyMazeGenerator extends AMazeGenerator {
      */
     @Override
     public Maze generate(int row, int column) {
-        Position start  = new Position(0,0);
-        Position end = new Position(row-1,column-1);
-        return new Maze(new int[row][column],start,end);
+
+        //Checks whether the numbers are positive
+        if(row > 0 && column > 0){
+            Position start  = new Position(0,0);
+            Position end = new Position(row-1,column-1);
+            return new Maze(new int[row][column],start,end);
+        }
+        return null;
     }
 }

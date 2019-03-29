@@ -7,11 +7,10 @@ import java.util.PriorityQueue;
 public class Solution {
 
 
-    ArrayList<AState> pathSolution;
+    protected ArrayList<AState> pathSolution;
 
 
     public  Solution (AState StateEnd){
-
         pathSolution = new ArrayList<>();
         while(StateEnd != null){
             pathSolution.add(0,StateEnd);

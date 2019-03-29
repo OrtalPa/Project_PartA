@@ -17,6 +17,7 @@ public abstract class AState {
     {
         m_bVisited = false;
         parent = null;
+        cost = 10;
     }
 
     // A function that compares two
@@ -41,7 +42,7 @@ public abstract class AState {
      * @param cost
      */
     public void setCost(int cost) {
-        //You can only put 1 or 0
+        //You can only put 10 or 0 or 15
         if(cost == 10 || cost == 15 || cost==0){
             this.cost = cost;
         }

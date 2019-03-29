@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
-    Stack<AState> stackOfNodes;
-    int countNodes;
+
+
+   protected Stack<AState> stackOfNodes;
+    protected int countNodes;
 
     public  DepthFirstSearch()
     {
@@ -18,8 +20,25 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
     @Override
     public Solution solve(ISearchable SearchableMaze) {
+
+        if(SearchableMaze == null ){
+            return null;
+        }
+
         AState startPoint = SearchableMaze.getStart();
         AState endPoint = SearchableMaze.getEnd();
+
+        if(startPoint == null || endPoint == null){
+            return null;
+        }
+
+        if(!(startPoint instanceof  MazeState) ||  !(endPoint instanceof  MazeState)){
+            return null;
+        }
+        //We know that the type of StartMaze and EndMaze is MazeState
+        if(((MazeState)endPoint).getRow() < 0  || ((MazeState)startPoint).getRow() < 0 || ((MazeState)startPoint).getCol() < 0 || ((MazeState)endPoint).getCol() < 0){
+            return null;
+        }
         //setting the start point as visited
         SearchableMaze.startSearch(startPoint);
         //insert start position to the stack
@@ -36,18 +55,21 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             else
             {
                 ArrayList<AState> neighbors = SearchableMaze.getAllPossibleStates(current);
-                neighbors = flipList(neighbors);
-                for (AState currNeighbor:neighbors)
-                {//if the neighbor was not visited
-                    if (!SearchableMaze.getStateAsVisited(currNeighbor))
-                    {//set it as visited
-                        SearchableMaze.setStateAsVisited(currNeighbor);
-                        currNeighbor.setParent(current);
-                        //insert to the stack
-                        stackOfNodes.push(currNeighbor);
-                        countNodes++;
+                if(neighbors != null){
+                    neighbors = flipList(neighbors);
+                    for (AState currNeighbor:neighbors)
+                    {//if the neighbor was not visited
+                        if (!SearchableMaze.getStateAsVisited(currNeighbor))
+                        {//set it as visited
+                            SearchableMaze.setStateAsVisited(currNeighbor);
+                            currNeighbor.setParent(current);
+                            //insert to the stack
+                            stackOfNodes.push(currNeighbor);
+                            countNodes++;
+                        }
                     }
                 }
+
             }
         }
         return null;
@@ -71,7 +93,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
     /**
      * The function returns the number of vertices developed by an algorithm
-     * @return
+     * @return int
      * @Override
      */
 
