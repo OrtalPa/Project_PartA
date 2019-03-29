@@ -68,6 +68,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                         stateNeighbors.setCost(stateNeighbors.getCost() + current.getCost());
                         open.add(stateNeighbors);
                         numOfPOsition++;
+
                     }
                 }
             }
