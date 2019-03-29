@@ -67,7 +67,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                 while(Neighbors.size() > 0){
                     AState stateNeighbors = Neighbors.remove(0);
                     //IF s is in not in CLOSE continue
-                    if(){
+                    if(true){
                         continue;
 
                     }
@@ -81,7 +81,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                         //add s to OPEN
                         nodesList.add(stateNeighbors);
                     }
-                    else if()
+                    else if(true){}
 
                 }
             }

@@ -1,28 +1,23 @@
 package algorithms.search;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
 
 
-    PriorityQueue<AState> nodesList;
+    Queue<AState> nodesQueue;
     int countNodes;
 
     public  BreadthFirstSearch(){
-
-
+        /*
         Comparator<AState> Comparator = new Comparator<AState>() {
             @Override
             public int compare(AState s1, AState s2) {
                 return 0;
             }
-        };
-         nodesList = new PriorityQueue(Comparator);
+        };*/
+        nodesQueue = new LinkedList<>();
         countNodes=0;
-
-
     }
 
     @Override
@@ -34,33 +29,57 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         //Get the start and end point of the maze
         AState start =SearchableMaze.getStart();
         AState end =SearchableMaze.getEnd();
-
+        //set first point as visited
+        SearchableMaze.setStateAsVisited(start);
         //Adds the first point of the maze
-        nodesList.add(start);
-        AState StateNow =  start;
-        //Marks I've been to a point
-        SearchableMaze.setStateAsVisited(StateNow);
+        nodesQueue.add(start);
         countNodes++;
 
-        //A loop that checks as long as we have points in queue and we not get to end
-        while(nodesList.size() > 0 || !StateNow.equals(end)){
+        while(!nodesQueue.isEmpty())
+        {
+            AState current = nodesQueue.poll();
+            if (current.equals(end))
+            {
+                return new Solution(current);
+            }
+            else
+            {
+                ArrayList<AState> neighbors = SearchableMaze.getAllPossibleStates(current);
+                for (AState currNeighbor:neighbors)
+                {//if the neighbor was not visited
+                    if (!SearchableMaze.getStateAsVisited(currNeighbor))
+                    {//set it as visited
+                        SearchableMaze.setStateAsVisited(currNeighbor);
+                        currNeighbor.setParent(current);
+                        //insert to the stack
+                        nodesQueue.add(currNeighbor);
+                        countNodes++;
+                    }
+                }
+            }
+        }
+        return null;
 
-             StateNow= nodesList.remove();
-            SearchableMaze.setStateAsVisited(StateNow);
+        /*
+        AState StateNow =  start;
+        //A loop that checks as long as we have points in queue and we do not get to the end
+        while(nodesQueue.size() > 0 || !StateNow.equals(end)){
+
+             StateNow= nodesQueue.remove();
+             SearchableMaze.setStateAsVisited(StateNow);
 
             //You get a list of all the neighboring points to the current point
             ArrayList<AState> array =  SearchableMaze.getAllPossibleStates(StateNow);
-
             //As long as the list is not empty and we have not found the end point
             while(array.size() > 0 && !flagFound){
                 if(!array.get(0).equals(end)){
                     AState state = array.remove(0);
-                    if(!nodesList.contains(state) && !SearchableMaze.getStateAsVisited(state)){
+                    if(!nodesQueue.contains(state) && !SearchableMaze.getStateAsVisited(state)){
                         //Add the neighboring point to the list of points to check
                         state.setParent(StateNow);
                         //Marks I've been to a point
                         SearchableMaze.setStateAsVisited(state);
-                        nodesList.add(state);
+                        nodesQueue.add(state);
                         countNodes++;
                     }
                 }
@@ -76,6 +95,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             }
         }//while
         return null;
+
+        */
     }
 
     /**
