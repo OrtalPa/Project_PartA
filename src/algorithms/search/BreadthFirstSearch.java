@@ -8,9 +8,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
 
     PriorityQueue<AState> nodesList;
-    //  PriorityQueue<MazeState> ans;
-    //<AState> nodesList;
-    //ArrayList<MazeState> ans;
     int countNodes;
 
     public  BreadthFirstSearch(){
@@ -23,10 +20,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             }
         };
          nodesList = new PriorityQueue(Comparator);
-        // ans =  new PriorityQueue(Comparator);
-
-       //ans = new ArrayList<MazeState>();
-        //nodesList = new ArrayList<>();
         countNodes=0;
 
 
@@ -45,25 +38,28 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         //Adds the first point of the maze
         nodesList.add(start);
         AState StateNow =  start;
+        //Marks I've been to a point
+        SearchableMaze.setStateAsVisited(StateNow);
         countNodes++;
 
         //A loop that checks as long as we have points in queue and we not get to end
         while(nodesList.size() > 0 || !StateNow.equals(end)){
 
-            //Only the points we remove are added to the ans
-           // StateNow= nodesList.remove(0);
-
              StateNow= nodesList.remove();
+            SearchableMaze.setStateAsVisited(StateNow);
+
             //You get a list of all the neighboring points to the current point
-            ArrayList<MazeState> array =  SearchableMaze.getAllPossibleStates(StateNow);
+            ArrayList<AState> array =  SearchableMaze.getAllPossibleStates(StateNow);
 
             //As long as the list is not empty and we have not found the end point
             while(array.size() > 0 && !flagFound){
                 if(!array.get(0).equals(end)){
                     AState state = array.remove(0);
-                    if(!nodesList.contains(state)){
+                    if(!nodesList.contains(state) && !SearchableMaze.getStateAsVisited(state)){
                         //Add the neighboring point to the list of points to check
                         state.setParent(StateNow);
+                        //Marks I've been to a point
+                        SearchableMaze.setStateAsVisited(state);
                         nodesList.add(state);
                         countNodes++;
                     }
@@ -76,8 +72,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             if(flagFound == true){
                 countNodes++;
                 end.setParent(StateNow);
-                //ans.addAll(nodesList);
-               //ans.add(array.remove(0));
                return new Solution(end);
             }
         }//while
@@ -89,7 +83,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
      * @return
      * @Override
      */
-
     public int getNumberOfNodesEvaluated() {
         return countNodes;
     }

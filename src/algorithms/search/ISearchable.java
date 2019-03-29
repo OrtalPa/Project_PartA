@@ -14,11 +14,15 @@ public interface ISearchable {
      * all the points that can be accessed from the point
      *
      */
-    ArrayList<MazeState> getAllPossibleStates(AState state);
+    ArrayList<AState> getAllPossibleStates(AState state);
 
     //The function returns the starting point
     AState getStart();
 
     //The function returns the end point
     AState getEnd();
+
+    void setStateAsVisited(AState state);
+
+    boolean getStateAsVisited(AState state);
 }

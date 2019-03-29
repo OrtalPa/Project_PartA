@@ -73,9 +73,9 @@ public class Maze {
         return m_maze[row][col];
     }
 
-    public String print()
+    public void print()
     {
-        return this.toString();
+        System.out.println(this.toString());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Maze {
             for(int j = 0; j < m_maze[0].length; j++)
             {
                 if (j!=0)
-                    s = s + ",";
+                    s = s + " ";
                 if (getStartPosition().getRowIndex() == i && getStartPosition().getColumnIndex() == j)
                     s = s + "S";
                 else if (getGoalPosition().getRowIndex() == i && getGoalPosition().getColumnIndex() == j)

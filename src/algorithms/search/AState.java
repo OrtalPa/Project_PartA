@@ -9,14 +9,14 @@ public abstract class AState {
 
     protected  AState parent; //the parent of the state
     protected boolean m_bVisited; //true if the state was visited before
-    protected boolean m_bHasMoreNeighbors; //true if there are unvisited neighbors
+    protected int cost;
 
     public AState()
     {
-        m_bHasMoreNeighbors = true;
         m_bVisited = false;
         parent = null;
     }
+
     // A function that compares two
     public abstract int compareTo(AState obj);
 
@@ -25,16 +25,24 @@ public abstract class AState {
         m_bVisited = visited;
     }
 
-    public void setM_bHasMoreNeighbors(boolean hasMoreNeighbors)
-    {
-        m_bHasMoreNeighbors = hasMoreNeighbors;
-    }
-
     public AState getParent() {
         return this.parent;
     }
 
-
     public abstract void setParent(AState parent);
 
+    /**
+     * A function which puts the cost of the point. For diagonal cost is one
+     * @param cost
+     */
+    public void setCost(int cost) {
+        //You can only put 1 or 0
+        if(cost == 10 || cost == 15){
+            this.cost = cost;
+        }
+    }
+
+    public int getCost() {
+        return cost;
+    }
 }

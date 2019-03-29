@@ -9,7 +9,6 @@ public class MazeState extends  AState {
 
     private int row;
     private int col;
-    private int cost;//cost = 1 if diagonal line
     private int Priority;
 
     /**
@@ -21,7 +20,7 @@ public class MazeState extends  AState {
         super();
         this.row = row;
         this.col = col;
-        this.cost =0;
+        this.cost =10;
         Priority = 0;
     }
 
@@ -29,9 +28,11 @@ public class MazeState extends  AState {
         super();
         this.row = row;
         this.col = col;
-        this.cost =0;
+        this.cost =10;
         this.Priority = Priority;
     }
+
+
 
     /**
      * Returns the index of the row
@@ -48,26 +49,18 @@ public class MazeState extends  AState {
         return col;
     }
 
-    /**
-     * A function which puts the cost of the point. For diagonal cost is one
-     * @param cost
-     */
-    public void setCost(int cost) {
-        //You can only put 1 or 0
-        if(cost == 0 || cost == 1){
-            this.cost = cost;
-        }
 
-    }
 
     /**
      *
-     * @param parent
+     * @param parent the parents to set for the state
      */
+    @Override
     public void setParent(AState parent) {
-        if(parent instanceof  MazeState){
+        if (parent instanceof MazeState) {
             this.parent = parent;
         }
+
     }
 
     /**
@@ -77,7 +70,7 @@ public class MazeState extends  AState {
      */
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof AState){
+        if(obj instanceof MazeState){
             if(this.row == ((MazeState)obj).row && this.col == ((MazeState)obj).col){
                 return true;
             }
