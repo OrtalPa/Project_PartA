@@ -31,8 +31,19 @@ public class SearchableMaze implements  ISearchable{
         int rowstart = maze.getStartPosition().getRowIndex();
         start  = new MazeState(rowstart,colstart);
 
-        //sets all points as not visited
-        Visited = new boolean[row][col];
+        setToFalse(row, col);
+    }
+
+    @Override
+    public void startSearch(AState startState)
+    {
+        setToFalse(maze.getRowLength(), maze.getColLength());
+        setStateAsVisited(startState);
+    }
+
+    //sets all points as not visited
+    private void setToFalse(int rowLength, int colLength) {
+        Visited = new boolean[rowLength][colLength];
         for (int i = 0; i < Visited.length; i++) {
             for (int j = 0; j < Visited[0].length; j++) {
                 Visited[i][j] = false;
@@ -161,15 +172,6 @@ public class SearchableMaze implements  ISearchable{
             }
         }
         return list;
-    }
-
-    /**
-     *
-     * The function returns the route as a solution to the maze
-     * @return ArrayList<AState>
-     */
-    public ArrayList<MazeState> getSolutionPath(){
-        return null;
     }
 
 }

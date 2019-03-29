@@ -30,7 +30,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState start =SearchableMaze.getStart();
         AState end =SearchableMaze.getEnd();
         //set first point as visited
-        SearchableMaze.setStateAsVisited(start);
+        SearchableMaze.startSearch(start);
         //Adds the first point of the maze
         nodesQueue.add(start);
         countNodes++;

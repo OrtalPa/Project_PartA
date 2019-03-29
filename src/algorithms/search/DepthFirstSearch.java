@@ -21,7 +21,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         AState startPoint = SearchableMaze.getStart();
         AState endPoint = SearchableMaze.getEnd();
         //setting the start point as visited
-        SearchableMaze.setStateAsVisited(startPoint);
+        SearchableMaze.startSearch(startPoint);
         //insert start position to the stack
         stackOfNodes.push(startPoint);
         countNodes++;
