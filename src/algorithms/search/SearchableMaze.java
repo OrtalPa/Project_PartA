@@ -65,8 +65,23 @@ public class SearchableMaze implements  ISearchable{
         if (state instanceof MazeState)
         {
             MazeState ms = (MazeState)state;
+            ms.setVisited(true);
             Visited[ms.getRow()][ms.getCol()] = true;
         }
+    }
+
+
+    /**
+     * get a state as visited
+     * @param state Maze State to get as visited
+     */
+    public boolean getStateAsVisited(AState state) {
+        if (state instanceof MazeState)
+        {
+            MazeState ms = (MazeState)state;
+            return Visited[ms.getRow()][ms.getCol()];
+        }
+        return false;
     }
 
     /**
@@ -75,15 +90,15 @@ public class SearchableMaze implements  ISearchable{
      * @param state
      * @return ArrayList<AState>
      */
-    public ArrayList<MazeState> getAllPossibleStates(AState state)
+    public ArrayList<AState> getAllPossibleStates(AState state)
     {
-        ArrayList<MazeState> list = new ArrayList<MazeState>();
+
+        ArrayList<AState> list = new ArrayList<>();
         int col =((MazeState)state).getCol();
         int row = ((MazeState)state).getRow();
         if(this.maze.getValue(row,col) == 1){
             return null;
         }
-       // list.add(state);
 
         //1-up
         if(maze.getValue(row -1 ,col) == 0){
@@ -97,9 +112,9 @@ public class SearchableMaze implements  ISearchable{
             if(maze.getValue(row -1 ,col) == 0 || maze.getValue(row ,col+1) == 0){
                 MazeState s1 =new MazeState(row -1,col+1);
                 s1.setVisited(Visited[row -1][col+1]);
-                s1.setCost(1);
+                s1.setCost(15);
                list.add(s1);
-        }
+            }
         }
         //3-right
         if(maze.getValue(row ,col+1) == 0){
@@ -112,11 +127,11 @@ public class SearchableMaze implements  ISearchable{
             if(maze.getValue(row ,col+1) == 0 || maze.getValue(row+1 ,col) == 0){
                 MazeState s1 =new MazeState(row +1,col+1);
                 s1.setVisited(Visited[row +1][col+1]);
-                s1.setCost(1);
+                s1.setCost(15);
                 list.add(s1);
             }
-
         }
+
         //5-down
         if(maze.getValue(row+1 ,col) == 0){
             MazeState ms = new MazeState(row+1,col);
@@ -128,7 +143,7 @@ public class SearchableMaze implements  ISearchable{
             if(maze.getValue(row+1 ,col) == 0 || maze.getValue(row ,col-1) == 0){
                 MazeState s1 =new MazeState(row +1,col-1);
                 s1.setVisited(Visited[row +1][col-1]);
-                s1.setCost(1);
+                s1.setCost(15);
                 list.add(s1);
             }
         }
@@ -143,7 +158,7 @@ public class SearchableMaze implements  ISearchable{
             if(maze.getValue(row ,col-1) == 0 || maze.getValue(row -1 ,col) == 0){
                 MazeState s1 =new MazeState(row -1,col-1);
                 s1.setVisited(Visited[row -1][col-1]);
-                s1.setCost(1);
+                s1.setCost(15);
                 list.add(s1);
             }
         }

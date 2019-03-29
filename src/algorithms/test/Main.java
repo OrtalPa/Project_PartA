@@ -15,12 +15,12 @@ public class Main {
 
     public static void main (String args[])
     {
-     //   firstTest();
+        firstTest();
 
        // testRuntime();
 
-
-        testRuntimeParentsArray();
+        //testTimeGetAllPossibleStates();
+        //testRuntimeParentsArray();
 
 
         /*DFS
@@ -66,14 +66,16 @@ public class Main {
     private static void firstTest() {
         // Maze maze = (new SimpleMazeGenerator()).generate(3,5);
         MyMazeGenerator m = new MyMazeGenerator();
-        Maze maze = (m).generate(50   ,50);
+        Maze maze = (m).generate(10 ,10);
         //System.out.println(m.measureAlgorithmTimeMillis(1000,1000));
         System.out.println(maze);
+        System.out.println("DONE create maze");
 
 
         SearchableMaze search = new SearchableMaze(maze);
         long startTime = System.currentTimeMillis();
         BreadthFirstSearch BreadthFirstSearch =new BreadthFirstSearch();
+        System.out.println("DONE create BreadthFirstSearch");
         Solution sol = BreadthFirstSearch.solve(search);
         long end = System.currentTimeMillis();
         System.out.println(end - startTime);
@@ -94,6 +96,21 @@ public class Main {
         time = System.nanoTime();
         test.pop();
         System.out.println("time to pop: "+ (System.nanoTime() -  time));
+
+
+    }
+
+
+    private static void testTimeGetAllPossibleStates() {
+
+        MyMazeGenerator m = new MyMazeGenerator();
+        Maze maze = (m).generate(20   ,20);
+        SearchableMaze search = new SearchableMaze(maze);
+        long startTime = System.currentTimeMillis();
+        search.getAllPossibleStates(new MazeState(0,8));
+        long End = System.currentTimeMillis();
+        System.out.println(End-startTime + " test time of getAllPossibleStates");
+
     }
 
 
