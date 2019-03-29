@@ -7,8 +7,6 @@ import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
     Stack<AState> stackOfNodes;
-    AState startPoint;
-    AState endPoint;
     int countNodes;
 
     public  DepthFirstSearch()
@@ -20,13 +18,13 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
     @Override
     public Solution solve(ISearchable SearchableMaze) {
-        startPoint = SearchableMaze.getStart();
-        endPoint = SearchableMaze.getEnd();
+        AState startPoint = SearchableMaze.getStart();
+        AState endPoint = SearchableMaze.getEnd();
         //setting the start point as visited
         SearchableMaze.setStateAsVisited(startPoint);
-
         //insert start position to the stack
         stackOfNodes.push(startPoint);
+        countNodes++;
 
         while(!stackOfNodes.empty())
         {
@@ -38,6 +36,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             else
             {
                 ArrayList<AState> neighbors = SearchableMaze.getAllPossibleStates(current);
+                neighbors = flipList(neighbors);
                 for (AState currNeighbor:neighbors)
                 {//if the neighbor was not visited
                     if (!SearchableMaze.getStateAsVisited(currNeighbor))
@@ -46,11 +45,28 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                         currNeighbor.setParent(current);
                         //insert to the stack
                         stackOfNodes.push(currNeighbor);
+                        countNodes++;
                     }
                 }
             }
         }
         return null;
+    }
+
+    /**
+     * flips the order of the list so the searching algorithm
+     * will go over the neighbors in the required order
+     * @param listToFlip the list to flip
+     * @return a flipped list
+     */
+    private ArrayList<AState> flipList(ArrayList<AState> listToFlip)
+    {
+        ArrayList<AState> neighbors = new ArrayList<>();
+        for (int i = listToFlip.size()-1; i >=0 ; i--)
+        {
+            neighbors.add(listToFlip.remove(i));
+        }
+        return neighbors;
     }
 
     /**

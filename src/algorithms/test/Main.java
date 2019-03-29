@@ -25,21 +25,30 @@ public class Main {
         //testTimeGetAllPossibleStates();
         //testRuntimeParentsArray();
 
-        Maze maze = generateMaze(1000,1000);
-       // System.out.println(maze);
-        searchMaze(new DepthFirstSearch(), maze);
+
+        Maze maze = generateMaze(6,6);
+        System.out.println(maze);
+        Solution sol = searchMaze(new DepthFirstSearch(), maze);
+        printSolution(sol);
+        sol = searchMaze(new BreadthFirstSearch(), maze);
+        printSolution(sol);
+
     }
 
-    private static void searchMaze(ASearchingAlgorithm searchingAlgorithm, Maze maze)
+    private static Solution searchMaze(ASearchingAlgorithm searchingAlgorithm, Maze maze)
     {
         SearchableMaze search = new SearchableMaze(maze);
         long startTime = System.currentTimeMillis();
         Solution sol = searchingAlgorithm.solve(search);
         long end = System.currentTimeMillis();
         System.out.println("Runtime of "+searchingAlgorithm.getName()+": "+(end - startTime));
+        return sol;
+    }
+
+    private static void printSolution(Solution sol) {
         if (sol!=null) {
             ArrayList<AState> arraysol = sol.getSolutionPath();
-         //   System.out.println(arraysol);
+            System.out.println(arraysol);
         }
         else
             System.out.println("Solution is null");
@@ -48,7 +57,7 @@ public class Main {
     private static Maze generateMaze(int rowNum, int colNum)
     {
         MyMazeGenerator m = new MyMazeGenerator();
-        Maze maze = (m).generate(rowNum   ,colNum);
+        Maze maze = (m).generate(rowNum,colNum);
         return maze;
     }
 
