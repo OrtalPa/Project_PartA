@@ -12,9 +12,14 @@ public abstract class AMazeGenerator implements IMazeGenerator{
      */
     public long measureAlgorithmTimeMillis(int row, int column)
     {
-        long startTime = System.currentTimeMillis();
-        generate(row,column);
-        long endTime = System.currentTimeMillis();
-        return endTime-startTime;
+        //Checks whether the numbers are positive
+        if(row > 0 && column > 0){
+            long startTime = System.currentTimeMillis();
+            generate(row,column);
+            long endTime = System.currentTimeMillis();
+            return endTime-startTime;
+        }
+        return 0;
+
     }
 }

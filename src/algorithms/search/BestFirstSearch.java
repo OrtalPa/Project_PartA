@@ -13,28 +13,11 @@ public class BestFirstSearch extends ASearchingAlgorithm {
 
 
 
-    PriorityQueue<AState> open;
+    PriorityQueue<AState> nodeList;
     int numOfPOsition;
 
 
     public  BestFirstSearch(){
-        AState a = new MazeState(0,0);
-        Comparator<MazeState> Comparator = new Comparator<MazeState>() {
-            @Override
-            public int compare(MazeState s1, MazeState s2){
-                if(s1.getPriority() > s2.getPriority() ){
-                    return 1;
-                }
-                else if(s1.getPriority() == s2.getPriority() ){
-                    return 0;
-                }
-                else{
-                    return -1;
-                }
-            }
-        };
-
-        open = new PriorityQueue(Comparator);
         numOfPOsition=0;
 
     }
@@ -42,137 +25,89 @@ public class BestFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable SearchableMaze) {
 
+        if(SearchableMaze == null){
+            return null;
+        }
 
         AState StartMaze = SearchableMaze.getStart();
         AState EndMaze = SearchableMaze.getEnd();
+
+        if(StartMaze == null || EndMaze == null ){
+            return null;
+        }
+
+        if(!(StartMaze instanceof  MazeState) ||  !(EndMaze instanceof  MazeState)){
+            return null;
+        }
+        //We know that the type of StartMaze and EndMaze is MazeState
+        if(((MazeState)EndMaze).getRow() < 0  || ((MazeState)StartMaze).getRow() < 0 || ((MazeState)StartMaze).getCol() < 0 || ((MazeState)EndMaze).getCol() < 0){
+            return null;
+        }
+
+        Comparator<AState> Comparator = new Comparator<AState>() {
+            @Override
+            public int compare(AState s1, AState s2){
+                if(s1 instanceof  MazeState &&  s2 instanceof  MazeState){
+                    int costS1 = Math.abs(((MazeState)s1).getRow() - ((MazeState)EndMaze).getRow())+ Math.abs(((MazeState)s1).getCol() - ((MazeState)EndMaze).getCol());
+                    int costS2 = Math.abs(((MazeState)s2).getRow() - ((MazeState)EndMaze).getRow())+ Math.abs(((MazeState)s2).getCol() - ((MazeState)EndMaze).getCol());
+                    if(costS1 == costS2){
+                        return 0;
+                    }
+                    if(costS1 > costS2){
+                        return 1;
+                    }
+                    if(costS1 < costS2){
+                        return -1;
+                    }
+                }
+                return 0;
+            }
+        };
+
+        nodeList = new PriorityQueue(Comparator);
+
+        //Set up a parent to start the maze
         StartMaze.setParent(null);
+        //The starting point cost is 0
         StartMaze.setCost(0);
-        SearchableMaze.setStateAsVisited(StartMaze);
-        open.add(StartMaze);
+        //Update that we visited the point
+        SearchableMaze.startSearch(StartMaze);
+        //Add to the list
+        nodeList.add(StartMaze);
+        //Raising the number of vertices we have found
         numOfPOsition++;
         boolean flagFound = false;
         AState current = null;
-        while(open.size() > 0 && flagFound == false) {
 
-            current = open.remove();
+        while(nodeList.size() > 0 && flagFound == false) {
+            current = nodeList.remove();
 
+            //we fond the end
             if (current.equals(EndMaze)) {
                 flagFound = true;
-            } else {
-                ArrayList<AState> Neighbors = SearchableMaze.getAllPossibleStates(current);
-                while (Neighbors.size() > 0) {
-                    AState stateNeighbors = Neighbors.remove(0);
-                    if (SearchableMaze.getStateAsVisited(stateNeighbors) == false) {
-                        SearchableMaze.setStateAsVisited(stateNeighbors);
-                        stateNeighbors.setParent(current);
-                        stateNeighbors.setCost(stateNeighbors.getCost() + current.getCost());
-                        open.add(stateNeighbors);
-                        numOfPOsition++;
-
-                    }
-                }
             }
-
-        }
-        if(flagFound ==  true){
-            return new Solution(current);
-        }
-
-        /*
-        AState StartMaze = SearchableMaze.getStart();
-        AState EndMaze = SearchableMaze.getEnd();
-
-        //Define lists CLOSED
-        ArrayList<AState> close = new ArrayList<>();
-
-        StartMaze.setParent(null);
-        StartMaze.setCost(0);
-        SearchableMaze.setStateAsVisited(StartMaze);
-        //add the start node, s, to OPEN
-        open.add(StartMaze);
-        numOfPOsition++;
-
-        boolean flagFound = false;
-        AState current = null;
-        //2
-        while(open.size() > 0 && !flagFound){
-            //Take from OPEN the node n with the best score, and move it to CLOSED.
-            current =  open.poll();
-            close.add(current);
-
-            //IF n is the goal state
-            if(current.equals(EndMaze)){
-                flagFound = true;
-            }
-            else{
-                //Expand node n by getting his successors
+            else {
                 ArrayList<AState> Neighbors = SearchableMaze.getAllPossibleStates(current);
-                //FOR each successor s:
-                while(Neighbors.size() > 0){
-                    AState stateNeighbors = Neighbors.remove(0);
-                    //IF s is in not in CLOSE continue
-
-                    //if(close.contains(stateNeighbors) == false){
-                        //continue;
-                    //}
-
-                    // IF s is not in OPEN
-                    if(open.contains(stateNeighbors) == false){
-                        //update s parent node to be current
-                        stateNeighbors.setParent(current);
-                        stateNeighbors.setVisited(true);
-                        // apply the cost of arrival to s node
-                        stateNeighbors.setCost(stateNeighbors.getCost() + current.getCost());
-                        //add s to OPEN
-                        open.add(stateNeighbors);
-                        numOfPOsition++;
-                    }
-                    //ELSE IF this new path shorter then previous one
-                    else{
-                        int cost1 = 0;
-                        if(open.contains(stateNeighbors) == true){
-                          Iterator<AState> iter = open.iterator();
-                          while(iter.hasNext()){
-                              if(iter.equals(stateNeighbors)){
-                                  cost1 = iter.next().getCost();
-                              }
-                              iter.next();
-                          }//while
-                        }//if
-                        int cost2 = 0;
-                        if(close.contains(stateNeighbors) == true){
-                            int i=0;
-                            for(i=0;i<close.size();i++){
-                                if(close.get(i).equals(stateNeighbors)){
-                                    cost2 = close.get(i).getCost();
-                                }
-                            }
-                        }//if
-                        int maxCost = Math.max(cost1,cost2);
-                        if(maxCost > stateNeighbors.getCost() + current.getCost()){
-                            //update s with the shortest path
+                if(Neighbors != null){
+                    while (Neighbors.size() > 0) {
+                        AState stateNeighbors = Neighbors.remove(0);
+                        if (SearchableMaze.getStateAsVisited(stateNeighbors) == false) {
+                            SearchableMaze.setStateAsVisited(stateNeighbors);
+                            stateNeighbors.setParent(current);
                             stateNeighbors.setCost(stateNeighbors.getCost() + current.getCost());
-                            //add to open if its not there
-                            if(open.contains(stateNeighbors)==false){
-                                open.add(stateNeighbors);
-                            }
-                        }//if
-                    }
-
+                            //Add to the list
+                            nodeList.add(stateNeighbors);
+                            //Raising the number of vertices we have found
+                            numOfPOsition++;
+                        }//if getStateAsVisited
+                    }//while Neighbors.size()
                 }
-            }
+            }//else
 
-        }
-        //return  the solution by tracing the path from the goal node to n
+        }//while found
         if(flagFound ==  true){
             return new Solution(current);
         }
-
-        //IF OPEN is empty THEN Exit
-        return null;
-
-        */
-
         return null;
     }
 

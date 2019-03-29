@@ -21,17 +21,20 @@ public class SearchableMaze implements  ISearchable{
      */
     public SearchableMaze(Maze maze) {
 
-        this.maze = maze;
-        int row = maze.getRowLength();
-        int col = maze.getColLength();
-        int colend  = maze.getGoalPosition().getColumnIndex();
-        int rowend  = maze.getGoalPosition().getRowIndex();
-        end  = new MazeState(rowend,colend);
-        int colstart = maze.getStartPosition().getColumnIndex();
-        int rowstart = maze.getStartPosition().getRowIndex();
-        start  = new MazeState(rowstart,colstart);
+        if(maze != null){
+            this.maze = maze;
+            int row = maze.getRowLength();
+            int col = maze.getColLength();
+            int colend  = maze.getGoalPosition().getColumnIndex();
+            int rowend  = maze.getGoalPosition().getRowIndex();
+            end  = new MazeState(rowend,colend);
+            int colstart = maze.getStartPosition().getColumnIndex();
+            int rowstart = maze.getStartPosition().getRowIndex();
+            start  = new MazeState(rowstart,colstart);
+            setToFalse(row, col);
+        }
 
-        setToFalse(row, col);
+
     }
 
     @Override

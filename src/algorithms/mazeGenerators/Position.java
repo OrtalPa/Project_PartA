@@ -14,6 +14,8 @@ public class Position {
      * @param m_column column index
      */
     public Position(int m_row, int m_column) {
+
+        //The assumption situation can be negative
         this.m_row = m_row;
         this.m_column = m_column;
     }
@@ -24,8 +26,11 @@ public class Position {
      */
     public Position (Position p)
     {
+        if(p != null){
         m_column = p.m_column;
         m_row = p.m_row;
+         }
+
     }
 
     /**
@@ -41,6 +46,7 @@ public class Position {
      * @return int
      */
     public int getColumnIndex() {
+
         return m_column;
     }
 

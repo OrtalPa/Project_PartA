@@ -18,9 +18,15 @@ public class Maze {
      */
     public Maze(int[][] m_maze, Position m_start, Position m_end)
     {
-        this.m_maze = m_maze;
-        this.m_start = m_start;
-        this.m_end = m_end;
+        //The integrity of the input
+        if(m_maze != null && m_start.getColumnIndex() <  m_maze[0].length && m_end.getColumnIndex()< m_maze[0].length
+        && m_start.getRowIndex() < m_maze.length &&  m_end.getRowIndex() < m_maze.length
+        && m_start.getRowIndex() >= 0 &&  m_end.getRowIndex() >=0 && m_start.getColumnIndex() >=0 && m_end.getColumnIndex() >=0 ){
+            this.m_maze = m_maze;
+            this.m_start = m_start;
+            this.m_end = m_end;
+        }
+
     }
 
     /**
@@ -29,7 +35,6 @@ public class Maze {
      */
     public Position getStartPosition() {
         return new Position(m_start);
-        //returning deep copy
     }
 
     /**
@@ -38,7 +43,6 @@ public class Maze {
      */
     public Position getGoalPosition() {
         return new Position(m_end);
-        //returning deep copy
     }
 
     /**
@@ -47,9 +51,7 @@ public class Maze {
      * @return  int
      */
     public int getRowLength(){
-
         return m_maze.length;
-
     }
 
     /**
@@ -58,6 +60,7 @@ public class Maze {
      * @return int
      */
     public int getColLength(){
+
         return m_maze[0].length;
     }
 
@@ -73,6 +76,9 @@ public class Maze {
         return m_maze[row][col];
     }
 
+    /**
+     * A function that prints the maze
+     */
     public void print()
     {
         System.out.println(this.toString());
@@ -84,7 +90,7 @@ public class Maze {
 
         for (int i = 0; i < m_maze.length; i++)
         {
-            s = s + +i+")";
+            //s = s + +i+")";
             s = s + "{";
             for(int j = 0; j < m_maze[0].length; j++)
             {

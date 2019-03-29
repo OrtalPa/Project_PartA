@@ -7,6 +7,8 @@ import java.util.Random;
 
 //https://stackoverflow.com/questions/29739751/implementing-a-randomly-generated-maze-using-prims-algorithm
 public class MyMazeGenerator  extends AMazeGenerator{
+
+
     private class Index
     {
         private int m_iRow;
@@ -28,6 +30,10 @@ public class MyMazeGenerator  extends AMazeGenerator{
     @Override
     public Maze generate(int sizeOfRow, int sizeOfColumn)
     {
+        //If one of the values of the row or column is negative or 0 we will not allow to create a maze
+        if(sizeOfRow < 0 ||  sizeOfColumn < 0){
+            return null;
+        }
         //Start with a Grid full of Cells in state Blocked
         int[][] maze = new int[sizeOfRow][sizeOfColumn];
         for (int i = 0; i < sizeOfRow; i++) {

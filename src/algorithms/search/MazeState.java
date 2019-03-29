@@ -18,18 +18,24 @@ public class MazeState extends  AState {
      */
     public MazeState(int row, int col) {
         super();
-        this.row = row;
-        this.col = col;
-        this.cost =10;
-        Priority = 0;
+        if(row > 0 && col > 0){
+            this.row = row;
+            this.col = col;
+            this.cost =10;
+            Priority = 0;
+        }
+
     }
 
     public MazeState(int row, int col,int Priority) {
         super();
-        this.row = row;
-        this.col = col;
-        this.cost =10;
-        this.Priority = Priority;
+        if(row > 0 && col > 0 && (Priority == 0 || Priority == 10 || Priority == 15) ){
+            this.row = row;
+            this.col = col;
+            this.cost =10;
+            this.Priority = Priority;
+        }
+
     }
 
 
