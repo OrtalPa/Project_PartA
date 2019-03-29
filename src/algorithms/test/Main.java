@@ -15,7 +15,9 @@ public class Main {
 
     public static void main (String args[])
     {
-        firstTest();
+
+        TestBestFirstSearch();
+        //firstTest();
 
        // testRuntime();
 
@@ -75,6 +77,27 @@ public class Main {
         SearchableMaze search = new SearchableMaze(maze);
         long startTime = System.currentTimeMillis();
         BreadthFirstSearch BreadthFirstSearch =new BreadthFirstSearch();
+        System.out.println("DONE create BreadthFirstSearch");
+        Solution sol = BreadthFirstSearch.solve(search);
+        long end = System.currentTimeMillis();
+        System.out.println(end - startTime);
+        ArrayList<AState> arraysol = sol.getSolutionPath();
+        System.out.println("Solution");
+        System.out.println(arraysol.toString());
+    }
+
+    private static void TestBestFirstSearch() {
+        // Maze maze = (new SimpleMazeGenerator()).generate(3,5);
+        MyMazeGenerator m = new MyMazeGenerator();
+        Maze maze = (m).generate(10 ,10);
+        //System.out.println(m.measureAlgorithmTimeMillis(1000,1000));
+        System.out.println(maze);
+        System.out.println("DONE create maze");
+
+
+        SearchableMaze search = new SearchableMaze(maze);
+        long startTime = System.currentTimeMillis();
+        BestFirstSearch BreadthFirstSearch =new BestFirstSearch();
         System.out.println("DONE create BreadthFirstSearch");
         Solution sol = BreadthFirstSearch.solve(search);
         long end = System.currentTimeMillis();

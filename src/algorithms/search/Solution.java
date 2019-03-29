@@ -14,12 +14,9 @@ public class Solution {
 
         pathSolution = new ArrayList<>();
         while(StateEnd != null){
-            pathSolution.add(StateEnd);
+            pathSolution.add(0,StateEnd);
             StateEnd = StateEnd.getParent();
             }
-
-
-
     }
 
 

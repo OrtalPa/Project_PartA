@@ -37,7 +37,7 @@ public abstract class AState {
      */
     public void setCost(int cost) {
         //You can only put 1 or 0
-        if(cost == 10 || cost == 15){
+        if(cost == 10 || cost == 15 || cost==0){
             this.cost = cost;
         }
     }
