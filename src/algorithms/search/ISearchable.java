@@ -23,6 +23,6 @@ public interface ISearchable {
     AState getEnd();
 
     void setStateAsVisited(AState state);
-    boolean getStateAsVisited(AState state);
 
+    boolean getStateAsVisited(AState state);
 }

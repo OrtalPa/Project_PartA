@@ -20,6 +20,10 @@ public class Main {
        // testRuntimeParentsArray();
 
        // testEquals();
+       // testRuntime();
+
+        //testTimeGetAllPossibleStates();
+        //testRuntimeParentsArray();
 
         Maze maze = generateMaze(1000,1000);
        // System.out.println(maze);
@@ -78,6 +82,21 @@ public class Main {
         time = System.nanoTime();
         test.pop();
         System.out.println("time to pop: "+ (System.nanoTime() -  time));
+
+
+    }
+
+
+    private static void testTimeGetAllPossibleStates() {
+
+        MyMazeGenerator m = new MyMazeGenerator();
+        Maze maze = (m).generate(20   ,20);
+        SearchableMaze search = new SearchableMaze(maze);
+        long startTime = System.currentTimeMillis();
+        search.getAllPossibleStates(new MazeState(0,8));
+        long End = System.currentTimeMillis();
+        System.out.println(End-startTime + " test time of getAllPossibleStates");
+
     }
 
 
