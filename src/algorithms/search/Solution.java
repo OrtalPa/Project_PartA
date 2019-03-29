@@ -3,6 +3,7 @@ package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 public class Solution {
 
@@ -10,13 +11,13 @@ public class Solution {
     ArrayList<AState> pathSolution;
 
 
-    public  Solution (AState StateEnd){
+    public  Solution (AState StateEnd) {
 
         pathSolution = new ArrayList<>();
-        while(StateEnd != null){
+        while (StateEnd != null) {
             pathSolution.add(0,StateEnd);
             StateEnd = StateEnd.getParent();
-            }
+        }
     }
 
 
