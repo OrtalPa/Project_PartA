@@ -70,7 +70,6 @@ public class SearchableMaze implements  ISearchable{
         }
     }
 
-
     /**
      * get a state as visited
      * @param state Maze State to get as visited
@@ -92,7 +91,6 @@ public class SearchableMaze implements  ISearchable{
      */
     public ArrayList<AState> getAllPossibleStates(AState state)
     {
-
         ArrayList<AState> list = new ArrayList<>();
         int col =((MazeState)state).getCol();
         int row = ((MazeState)state).getRow();

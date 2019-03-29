@@ -3,9 +3,10 @@ package algorithms.search;
 import algorithms.mazeGenerators.Maze;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
-   // Stack<AState> stackOfNodes;
+    Stack<AState> stackOfNodes;
     AState startPoint;
     AState endPoint;
     int countNodes;
@@ -13,45 +14,45 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     public  DepthFirstSearch()
     {
         countNodes = 0;
-       // stackOfNodes = new Stack<>();
+        stackOfNodes = new Stack<>();
     }
 
 
     @Override
     public Solution solve(ISearchable SearchableMaze) {
-
-
-        //Think about whether it will be in our interface or that we will need to be converted
-        // add by shir
-      //  ListOfAllPoints = ((SearchableMaze)SearchableMaze).ListOfAllPoints();
-
         startPoint = SearchableMaze.getStart();
         endPoint = SearchableMaze.getEnd();
+        //setting the start point as visited
+        SearchableMaze.setStateAsVisited(startPoint);
 
-       // DepthFirstSearch(startPoint,SearchableMaze);
+        //insert start position to the stack
+        stackOfNodes.push(startPoint);
+
+        while(!stackOfNodes.empty())
+        {
+            AState current = stackOfNodes.pop();
+            if (current.equals(endPoint))
+            {
+                return new Solution(current);
+            }
+            else
+            {
+                ArrayList<AState> neighbors = SearchableMaze.getAllPossibleStates(current);
+                for (AState currNeighbor:neighbors)
+                {//if the neighbor was not visited
+                    if (!SearchableMaze.getStateAsVisited(currNeighbor))
+                    {//set it as visited
+                        SearchableMaze.setStateAsVisited(currNeighbor);
+                        currNeighbor.setParent(current);
+                        //insert to the stack
+                        stackOfNodes.push(currNeighbor);
+                    }
+                }
+            }
+        }
         return null;
-
     }
 
-
-    public AState DepthFirstSearch(MazeState State,ISearchable SearchableMaze){
-
-        return null;
-    }
-
-    /*
-
-    // add by shir
-    public int CheckIfVisited(int numRow,int numCol){
-        return ListOfAllPoints[numRow][numCol];
-    }
-
-
-    // add by shir
-    public void setVisit(int numRow,int numCol){
-        ListOfAllPoints[numRow][numCol] = 1;
-    }
-*/
     /**
      * The function returns the number of vertices developed by an algorithm
      * @return
