@@ -55,7 +55,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
              StateNow= nodesList.remove();
             //You get a list of all the neighboring points to the current point
-            ArrayList<MazeState> array =  SearchableMaze.getAllPossibleStates(StateNow);
+            ArrayList<AState> array =  SearchableMaze.getAllPossibleStates(StateNow);
 
             //As long as the list is not empty and we have not found the end point
             while(array.size() > 0 && !flagFound){

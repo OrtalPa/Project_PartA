@@ -15,46 +15,50 @@ public class Main {
 
     public static void main (String args[])
     {
-     //   firstTest();
-
        // testRuntime();
 
+       // testRuntimeParentsArray();
 
-        testRuntimeParentsArray();
+       // testEquals();
 
+        Maze maze = generateMaze(1000,1000);
+       // System.out.println(maze);
+        searchMaze(new DepthFirstSearch(), maze);
+    }
 
-        /*DFS
+    private static void searchMaze(ASearchingAlgorithm searchingAlgorithm, Maze maze)
+    {
+        SearchableMaze search = new SearchableMaze(maze);
         long startTime = System.currentTimeMillis();
-        Solution sol = (new DepthFirstSearch()).solve(search);
+        Solution sol = searchingAlgorithm.solve(search);
         long end = System.currentTimeMillis();
-        System.out.println(end - startTime);
-        ArrayList<MazeState> arraysol = sol.getSolutionPath();
-        System.out.println(arraysol.toString());
-
-        *DES_END/
-        /*Print neighbors
-        ArrayList<List<MazeState>> array =  search.getList();
-        for(int i=0; i< array.size();i++){
-            List<MazeState> list = array.get(i);
-            if (list != null){
-                for(int j=0; j<list.size();j++){
-                    System.out.print(list.get(j).toString());
-                }
-            }
-
-            System.out.println();
+        System.out.println("Runtime of "+searchingAlgorithm.getName()+": "+(end - startTime));
+        if (sol!=null) {
+            ArrayList<AState> arraysol = sol.getSolutionPath();
+         //   System.out.println(arraysol);
         }
-        Print neighbors end*/
+        else
+            System.out.println("Solution is null");
+    }
 
+    private static Maze generateMaze(int rowNum, int colNum)
+    {
+        MyMazeGenerator m = new MyMazeGenerator();
+        Maze maze = (m).generate(rowNum   ,colNum);
+        return maze;
+    }
 
-
-
-
+    private static void testEquals() {
+        AState state1 = new MazeState(3,4);
+        AState state2 = new MazeState(3,4);
+        AState state3 = new MazeState(5,4);
+        System.out.println(state1.equals(state2));
+        System.out.println(state2.equals(state3));
     }
 
     private static void testRuntimeParentsArray() {
         long time = System.nanoTime();
-        MazeState[][] Parents = new MazeState[10][10];
+        MazeState[][] Parents = new MazeState[1000][1000];
         for (int i = 0; i < Parents.length; i++) {
             for (int j = 0; j < Parents[0].length; j++) {
                 Parents[i][j] = new MazeState(i,j);
@@ -62,26 +66,6 @@ public class Main {
         }
         System.out.println("time to fill array: "+ (System.nanoTime() -  time));
     }
-
-    private static void firstTest() {
-        // Maze maze = (new SimpleMazeGenerator()).generate(3,5);
-        MyMazeGenerator m = new MyMazeGenerator();
-        Maze maze = (m).generate(50   ,50);
-        //System.out.println(m.measureAlgorithmTimeMillis(1000,1000));
-        System.out.println(maze);
-
-
-        SearchableMaze search = new SearchableMaze(maze);
-        long startTime = System.currentTimeMillis();
-        BreadthFirstSearch BreadthFirstSearch =new BreadthFirstSearch();
-        Solution sol = BreadthFirstSearch.solve(search);
-        long end = System.currentTimeMillis();
-        System.out.println(end - startTime);
-        ArrayList<AState> arraysol = sol.getSolutionPath();
-        System.out.println("Solution");
-        System.out.println(arraysol.toString());
-    }
-
 
     private static void testRuntime() {
 

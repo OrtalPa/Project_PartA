@@ -65,8 +65,18 @@ public class SearchableMaze implements  ISearchable{
         if (state instanceof MazeState)
         {
             MazeState ms = (MazeState)state;
+            ms.setVisited(true);
             Visited[ms.getRow()][ms.getCol()] = true;
         }
+    }
+
+    @Override
+    public boolean getStateAsVisited(AState state) {
+        if (state instanceof MazeState)
+        {
+            return Visited[((MazeState)state).getRow()][((MazeState)state).getCol()];
+        }
+        return false;
     }
 
     /**
@@ -75,15 +85,14 @@ public class SearchableMaze implements  ISearchable{
      * @param state
      * @return ArrayList<AState>
      */
-    public ArrayList<MazeState> getAllPossibleStates(AState state)
+    public ArrayList<AState> getAllPossibleStates(AState state)
     {
-        ArrayList<MazeState> list = new ArrayList<MazeState>();
+        ArrayList<AState> list = new ArrayList<AState>();
         int col =((MazeState)state).getCol();
         int row = ((MazeState)state).getRow();
         if(this.maze.getValue(row,col) == 1){
             return null;
         }
-       // list.add(state);
 
         //1-up
         if(maze.getValue(row -1 ,col) == 0){

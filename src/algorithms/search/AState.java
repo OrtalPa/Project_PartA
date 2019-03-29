@@ -2,6 +2,8 @@ package algorithms.search;
 
 import jdk.internal.dynalink.beans.StaticClass;
 
+import java.util.Objects;
+
 /**
  * An abstract class that represents a problem situation of a particular problem that we wish to solve
  */
@@ -22,6 +24,9 @@ public abstract class AState {
     {
         m_bVisited = visited;
     }
+
+    @Override
+    public abstract boolean equals(Object o);
 
     public AState getParent() {
         return this.parent;
