@@ -17,6 +17,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable SearchableMaze)
     {
+
+        return solve(SearchableMaze,nodesQueue);
+
+        /*
         if(SearchableMaze == null){
             return null;
         }
@@ -69,6 +73,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             }
         }
         return null;
+
+        */
 
     }
 

@@ -21,6 +21,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable SearchableMaze) {
 
+
+        return solve(SearchableMaze,stackOfNodes);
+        /**
         if(SearchableMaze == null ){
             return null;
         }
@@ -73,6 +76,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             }
         }
         return null;
+         */
     }
 
     /**

@@ -64,7 +64,12 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             }
         };
 
+
         nodeList = new PriorityQueue(Comparator);
+        return solve(SearchableMaze,nodeList);
+/*
+
+
 
         //Set up a parent to start the maze
         StartMaze.setParent(null);
@@ -109,6 +114,8 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             return new Solution(current);
         }
         return null;
+
+        */
     }
 
 
