@@ -8,11 +8,33 @@ import java.util.List;
 /**
  * The department is an abstract class that implements the algorithm search interface
  */
+
+//Does each search problem solve an algorithm of the form we have written???????
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
 
-   int countNodes;
+   protected int countNodes;
 
 
+    public ASearchingAlgorithm(){
+        countNodes = 0;
+
+    }
+
+    public abstract  Solution solve(ISearchable SearchableMaze);
+
+
+   //The function returns the name of the algorithm
+    public abstract String getName();
+
+
+    /**
+     * The function returns the number of vertices developed by an algorithm
+     * @return int Number Of Nodes Evaluated
+     *
+     */
+    public int getNumberOfNodesEvaluated(){
+        return countNodes;
+    }
 
 
     public Solution solve(ISearchable SearchableMaze, Collection<AState> Collection) {

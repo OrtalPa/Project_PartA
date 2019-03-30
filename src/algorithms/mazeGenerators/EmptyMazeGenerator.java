@@ -6,7 +6,7 @@ package algorithms.mazeGenerators;
 public class EmptyMazeGenerator extends AMazeGenerator {
 
     /**
-     * A function to generate the maze
+     * A function to generate the empty maze
      * @param row number of rows
      * @param column number of columns
      * @return an empty Maze object

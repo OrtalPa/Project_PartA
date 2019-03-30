@@ -11,15 +11,11 @@ import java.util.PriorityQueue;
  */
 public class BestFirstSearch extends ASearchingAlgorithm {
 
-
-
     PriorityQueue<AState> nodeList;
-    int numOfPOsition;
 
 
     public  BestFirstSearch(){
-        numOfPOsition=0;
-
+        super();
     }
 
     @Override
@@ -119,16 +115,6 @@ public class BestFirstSearch extends ASearchingAlgorithm {
     }
 
 
-    /**
-     * The function returns the number of vertices developed by an algorithm
-     * @return
-     * @Override
-     */
-
-    public int getNumberOfNodesEvaluated(){
-
-        return numOfPOsition;
-    }
 
     /**
      * The function returns the name of the algorithm

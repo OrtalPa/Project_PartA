@@ -9,12 +9,11 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
 
    protected Stack<AState> stackOfNodes;
-    protected int countNodes;
 
     public  DepthFirstSearch()
     {
-        countNodes = 0;
-        stackOfNodes = new Stack<>();
+       super();
+       stackOfNodes = new Stack<>();
     }
 
 

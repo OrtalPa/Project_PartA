@@ -5,13 +5,12 @@ import java.util.*;
 public class BreadthFirstSearch extends ASearchingAlgorithm {
 
 
-     protected Queue<AState> nodesQueue;
-    protected int countNodes;
+    protected Queue<AState> nodesQueue;
+
 
     public  BreadthFirstSearch(){
-
+        super();
         nodesQueue = new LinkedList<>();
-        countNodes=0;
     }
 
     @Override
@@ -78,14 +77,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
     }
 
-    /**
-     * The function returns the number of vertices developed by an algorithm
-     * @return int
-     *
-     */
-    public int getNumberOfNodesEvaluated() {
-        return countNodes;
-    }
     /**
      * The function returns the name of the algorithm
      *
