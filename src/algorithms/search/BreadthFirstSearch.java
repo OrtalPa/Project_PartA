@@ -5,13 +5,12 @@ import java.util.*;
 public class BreadthFirstSearch extends ASearchingAlgorithm {
 
 
-     protected Queue<AState> nodesQueue;
-    protected int countNodes;
+    protected Queue<AState> nodesQueue;
+
 
     public  BreadthFirstSearch(){
-
+        super();
         nodesQueue = new LinkedList<>();
-        countNodes=0;
     }
 
     @Override
@@ -55,31 +54,27 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             else
             {
                 ArrayList<AState> neighbors = SearchableMaze.getAllPossibleStates(current);
-                for (AState currNeighbor:neighbors)
-                {//if the neighbor was not visited
-                    if (!SearchableMaze.getStateAsVisited(currNeighbor))
-                    {//set it as visited
-                        SearchableMaze.setStateAsVisited(currNeighbor);
-                        currNeighbor.setParent(current);
-                        //insert to the stack
-                        nodesQueue.add(currNeighbor);
-                        countNodes++;
+                if(neighbors != null){
+                    for (AState currNeighbor:neighbors)
+                    {//if the neighbor was not visited
+                        if (!SearchableMaze.getStateAsVisited(currNeighbor))
+                        {//set it as visited
+                            SearchableMaze.setStateAsVisited(currNeighbor);
+                            currNeighbor.setParent(current);
+                            //insert to the stack
+                            nodesQueue.add(currNeighbor);
+                            countNodes++;
+                        }
                     }
                 }
+
             }
         }
         return null;
 
+
     }
 
-    /**
-     * The function returns the number of vertices developed by an algorithm
-     * @return int
-     *
-     */
-    public int getNumberOfNodesEvaluated() {
-        return countNodes;
-    }
     /**
      * The function returns the name of the algorithm
      *

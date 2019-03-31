@@ -9,12 +9,11 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
 
    protected Stack<AState> stackOfNodes;
-    protected int countNodes;
 
     public  DepthFirstSearch()
     {
-        countNodes = 0;
-        stackOfNodes = new Stack<>();
+       super();
+       stackOfNodes = new Stack<>();
     }
 
 
@@ -73,6 +72,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             }
         }
         return null;
+
     }
 
     /**
@@ -91,15 +91,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         return neighbors;
     }
 
-    /**
-     * The function returns the number of vertices developed by an algorithm
-     * @return int
-     * @Override
-     */
-
-    public int getNumberOfNodesEvaluated() {
-        return countNodes;
-    }
     /**
      * The function returns the name of the algorithm
      *  @Override

@@ -14,15 +14,10 @@ public interface ISearchable {
     ArrayList<AState> getAllPossibleStates(AState state);
 
     /**
-     * a function to start the search properly with the starting point
-      * @param startState the starting state of the search
-     */
-    void startSearch(AState startState);
-
-    /**
      * The function returns the starting point
      * @return AState - starting point
      */
+
     AState getStart();
 
     /**
@@ -30,6 +25,14 @@ public interface ISearchable {
      * @return AState - the ending point
      */
     AState getEnd();
+
+    /**
+     * a function to start the search properly with the starting point
+      * @param startState the starting state of the search
+     */
+    void startSearch(AState startState);
+
+//---------------------------------------------------------------------------------------//
 
     /**
      * Sets a certain state as visited in the current search

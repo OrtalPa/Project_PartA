@@ -19,6 +19,18 @@ public abstract class AState {
         parent = null;
         cost = 10;
     }
+    public AState(int cost)
+    {
+        m_bVisited = false;
+        parent = null;
+        if(cost == 10 || cost == 0 || cost == 15){
+            this.cost = cost;
+        }
+        else{
+            cost = 10;
+        }
+
+    }
 
     // A function that compares two
     public abstract int compareTo(AState obj);
@@ -48,6 +60,10 @@ public abstract class AState {
         }
     }
 
+    /**
+     * A function that returns the cost of the given point
+     * @return int cost
+     */
     public int getCost() {
         return cost;
     }

@@ -9,7 +9,6 @@ public class MazeState extends  AState {
 
     private int row;
     private int col;
-    private int Priority;
 
     /**
      * A constructor that accepts the index of the row and column
@@ -18,23 +17,17 @@ public class MazeState extends  AState {
      */
     public MazeState(int row, int col) {
         super();
-        if(row > 0 && col > 0){
+        if(row >= 0 && col >= 0){
             this.row = row;
             this.col = col;
-            this.cost =10;
-            Priority = 0;
         }
 
     }
 
-    public MazeState(int row, int col,int Priority) {
-        super();
-        if(row > 0 && col > 0 && (Priority == 0 || Priority == 10 || Priority == 15) ){
-            this.row = row;
-            this.col = col;
-            this.cost =10;
-            this.Priority = Priority;
-        }
+    public MazeState(int row, int col,int cost) {
+        super(cost);
+        this.row = row;
+        this.col = col;
 
     }
 
@@ -84,26 +77,19 @@ public class MazeState extends  AState {
         return false;
     }
 
-    /**
-     * A function that returns the priority of the given point
-     * @return int Priority
-     */
-    public int getPriority() {
-        return Priority;
-    }
 
 
     /**
-     * A function that compares two points according to their priority
+     * A function that compares two points according to their cost
      * @param obj
      * @return int
      */
     public int compareTo(AState obj){
         if(obj instanceof AState){
-            if(this.Priority > ((MazeState)obj).Priority ){
+            if(this.cost > ((MazeState)obj).cost ){
                 return 1;
             }
-            else if(this.Priority == ((MazeState)obj).Priority ){
+            else if(this.cost == ((MazeState)obj).cost ){
                 return 0;
             }
             else{

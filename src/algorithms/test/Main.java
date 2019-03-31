@@ -54,7 +54,7 @@ public class Main {
 
 
 
-        Maze maze = generateMaze(10,10);
+        Maze maze = generateMaze(5,5);
 
         System.out.println(maze);
 

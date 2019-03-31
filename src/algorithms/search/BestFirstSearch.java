@@ -11,15 +11,11 @@ import java.util.PriorityQueue;
  */
 public class BestFirstSearch extends ASearchingAlgorithm {
 
-
-
     PriorityQueue<AState> nodeList;
-    int numOfPOsition;
 
 
     public  BestFirstSearch(){
-        numOfPOsition=0;
-
+        super();
     }
 
     @Override
@@ -64,6 +60,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             }
         };
 
+
         nodeList = new PriorityQueue(Comparator);
 
         //Set up a parent to start the maze
@@ -75,7 +72,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         //Add to the list
         nodeList.add(StartMaze);
         //Raising the number of vertices we have found
-        numOfPOsition++;
+        countNodes++;
         boolean flagFound = false;
         AState current = null;
 
@@ -98,7 +95,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                             //Add to the list
                             nodeList.add(stateNeighbors);
                             //Raising the number of vertices we have found
-                            numOfPOsition++;
+                            countNodes++;
                         }//if getStateAsVisited
                     }//while Neighbors.size()
                 }
@@ -109,19 +106,11 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             return new Solution(current);
         }
         return null;
+
+
     }
 
 
-    /**
-     * The function returns the number of vertices developed by an algorithm
-     * @return
-     * @Override
-     */
-
-    public int getNumberOfNodesEvaluated(){
-
-        return numOfPOsition;
-    }
 
     /**
      * The function returns the name of the algorithm
