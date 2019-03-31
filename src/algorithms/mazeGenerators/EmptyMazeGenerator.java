@@ -15,7 +15,7 @@ public class EmptyMazeGenerator extends AMazeGenerator {
     public Maze generate(int row, int column) {
 
         //Checks whether the numbers are positive
-        if(row > 0 && column > 0){
+        if(row >= 0 && column >= 0){
             Position start  = new Position(0,0);
             Position end = new Position(row-1,column-1);
             return new Maze(new int[row][column],start,end);

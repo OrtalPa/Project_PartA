@@ -17,7 +17,7 @@ public abstract class AMazeGenerator implements IMazeGenerator{
     public long measureAlgorithmTimeMillis(int row, int column)
     {
         //Checks whether the numbers are positive
-        if(row > 0 && column > 0){
+        if(row >= 0 && column >= 0){
             long startTime = System.currentTimeMillis();
             generate(row,column);
             long endTime = System.currentTimeMillis();

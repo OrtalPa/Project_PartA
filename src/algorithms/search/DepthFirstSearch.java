@@ -20,9 +20,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable SearchableMaze) {
 
-
-        return solve(SearchableMaze,stackOfNodes);
-        /**
         if(SearchableMaze == null ){
             return null;
         }
@@ -75,7 +72,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             }
         }
         return null;
-         */
+
     }
 
     /**
@@ -94,15 +91,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         return neighbors;
     }
 
-    /**
-     * The function returns the number of vertices developed by an algorithm
-     * @return int
-     * @Override
-     */
-
-    public int getNumberOfNodesEvaluated() {
-        return countNodes;
-    }
     /**
      * The function returns the name of the algorithm
      *  @Override

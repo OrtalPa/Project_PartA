@@ -10,6 +10,8 @@ import java.util.List;
  */
 
 //Does each search problem solve an algorithm of the form we have written???????
+
+
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
 
    protected int countNodes;
@@ -19,8 +21,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         countNodes = 0;
 
     }
-
-    public abstract  Solution solve(ISearchable SearchableMaze);
 
 
    //The function returns the name of the algorithm
@@ -36,7 +36,9 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         return countNodes;
     }
 
+    public abstract Solution solve(ISearchable SearchableMaze);
 
+     /*
     public Solution solve(ISearchable SearchableMaze, Collection<AState> Collection) {
 
         countNodes = 0;
@@ -94,7 +96,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         return null;
     }
 
-
-
+    */
 
 }

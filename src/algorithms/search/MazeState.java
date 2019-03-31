@@ -17,7 +17,7 @@ public class MazeState extends  AState {
      */
     public MazeState(int row, int col) {
         super();
-        if(row > 0 && col > 0){
+        if(row >= 0 && col >= 0){
             this.row = row;
             this.col = col;
         }

@@ -62,10 +62,6 @@ public class BestFirstSearch extends ASearchingAlgorithm {
 
 
         nodeList = new PriorityQueue(Comparator);
-        return solve(SearchableMaze,nodeList);
-/*
-
-
 
         //Set up a parent to start the maze
         StartMaze.setParent(null);
@@ -76,7 +72,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         //Add to the list
         nodeList.add(StartMaze);
         //Raising the number of vertices we have found
-        numOfPOsition++;
+        countNodes++;
         boolean flagFound = false;
         AState current = null;
 
@@ -99,7 +95,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                             //Add to the list
                             nodeList.add(stateNeighbors);
                             //Raising the number of vertices we have found
-                            numOfPOsition++;
+                            countNodes++;
                         }//if getStateAsVisited
                     }//while Neighbors.size()
                 }
@@ -111,7 +107,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         }
         return null;
 
-        */
+
     }
 
 

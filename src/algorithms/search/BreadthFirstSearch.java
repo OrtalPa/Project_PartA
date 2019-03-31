@@ -16,10 +16,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     @Override
     public Solution solve(ISearchable SearchableMaze)
     {
-
-        return solve(SearchableMaze,nodesQueue);
-
-        /*
         if(SearchableMaze == null){
             return null;
         }
@@ -58,22 +54,24 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             else
             {
                 ArrayList<AState> neighbors = SearchableMaze.getAllPossibleStates(current);
-                for (AState currNeighbor:neighbors)
-                {//if the neighbor was not visited
-                    if (!SearchableMaze.getStateAsVisited(currNeighbor))
-                    {//set it as visited
-                        SearchableMaze.setStateAsVisited(currNeighbor);
-                        currNeighbor.setParent(current);
-                        //insert to the stack
-                        nodesQueue.add(currNeighbor);
-                        countNodes++;
+                if(neighbors != null){
+                    for (AState currNeighbor:neighbors)
+                    {//if the neighbor was not visited
+                        if (!SearchableMaze.getStateAsVisited(currNeighbor))
+                        {//set it as visited
+                            SearchableMaze.setStateAsVisited(currNeighbor);
+                            currNeighbor.setParent(current);
+                            //insert to the stack
+                            nodesQueue.add(currNeighbor);
+                            countNodes++;
+                        }
                     }
                 }
+
             }
         }
         return null;
 
-        */
 
     }
 
