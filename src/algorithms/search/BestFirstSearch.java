@@ -24,19 +24,9 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         if(SearchableMaze == null){
             return null;
         }
-
         AState StartMaze = SearchableMaze.getStart();
         AState EndMaze = SearchableMaze.getEnd();
-
         if(StartMaze == null || EndMaze == null ){
-            return null;
-        }
-
-        if(!(StartMaze instanceof  MazeState) ||  !(EndMaze instanceof  MazeState)){
-            return null;
-        }
-        //We know that the type of StartMaze and EndMaze is MazeState
-        if(((MazeState)EndMaze).getRow() < 0  || ((MazeState)StartMaze).getRow() < 0 || ((MazeState)StartMaze).getCol() < 0 || ((MazeState)EndMaze).getCol() < 0){
             return null;
         }
 
@@ -89,7 +79,9 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                     while (Neighbors.size() > 0) {
                         AState stateNeighbors = Neighbors.remove(0);
                         if (SearchableMaze.getStateAsVisited(stateNeighbors) == false) {
-                            SearchableMaze.setStateAsVisited(stateNeighbors);
+                            try {
+                                SearchableMaze.setStateAsVisited(stateNeighbors);
+                            }catch (IndexOutOfBoundsException e) {return null;}
                             stateNeighbors.setParent(current);
                             stateNeighbors.setCost(stateNeighbors.getCost() + current.getCost());
                             //Add to the list

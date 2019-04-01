@@ -3,6 +3,7 @@ package algorithms.test;
 import algorithms.search.BestFirstSearch;
 import org.junit.jupiter.api.Test;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JUnitTestingBestFirstSearch {
@@ -17,11 +18,7 @@ class JUnitTestingBestFirstSearch {
     @Test
     void getNumberOfNodesEvaluated() {
 
-
-
     }
-
-
 
     @Test
     void getName() {

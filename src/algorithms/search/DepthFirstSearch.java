@@ -31,13 +31,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             return null;
         }
 
-        if(!(startPoint instanceof  MazeState) ||  !(endPoint instanceof  MazeState)){
-            return null;
-        }
-        //We know that the type of StartMaze and EndMaze is MazeState
-        if(((MazeState)endPoint).getRow() < 0  || ((MazeState)startPoint).getRow() < 0 || ((MazeState)startPoint).getCol() < 0 || ((MazeState)endPoint).getCol() < 0){
-            return null;
-        }
         //setting the start point as visited
         SearchableMaze.startSearch(startPoint);
         //insert start position to the stack
@@ -60,7 +53,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                     {//if the neighbor was not visited
                         if (!SearchableMaze.getStateAsVisited(currNeighbor))
                         {//set it as visited
-                            SearchableMaze.setStateAsVisited(currNeighbor);
+                            try {
+                                SearchableMaze.setStateAsVisited(currNeighbor);
+                            }catch (IndexOutOfBoundsException e) {return null;}
                             currNeighbor.setParent(current);
                             //insert to the stack
                             stackOfNodes.push(currNeighbor);

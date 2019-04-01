@@ -3,7 +3,6 @@ package algorithms.search;
 import algorithms.mazeGenerators.Maze;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Department of Labyrinth Adaptation
@@ -23,8 +22,8 @@ public class SearchableMaze implements  ISearchable{
 
         if(maze != null){
             this.maze = maze;
-            int row = maze.getRowLength();
-            int col = maze.getColLength();
+            int row = maze.getNumberOfRows();
+            int col = maze.getNumberOfColumns();
             int colend  = maze.getGoalPosition().getColumnIndex();
             int rowend  = maze.getGoalPosition().getRowIndex();
             end  = new MazeState(rowend,colend);
@@ -40,8 +39,11 @@ public class SearchableMaze implements  ISearchable{
     @Override
     public void startSearch(AState startState)
     {
-        setToFalse(maze.getRowLength(), maze.getColLength());
-        setStateAsVisited(startState);
+        setToFalse(maze.getNumberOfRows(), maze.getNumberOfColumns());
+        try {
+            setStateAsVisited(startState);
+        }catch (IndexOutOfBoundsException e){return;}
+
     }
 
     //sets all points as not visited
@@ -75,10 +77,13 @@ public class SearchableMaze implements  ISearchable{
      * @param state Maze State to set as visited
      */
     @Override
-    public void setStateAsVisited(AState state) {
+    public void setStateAsVisited(AState state) throws IndexOutOfBoundsException{
         if (state instanceof MazeState)
         {
             MazeState ms = (MazeState)state;
+            if(ms.getRow() < 0 || ms.getCol() < 0 || ms.getCol() > maze.getNumberOfColumns() || ms.getRow() > maze.getNumberOfRows()){
+                throw new IndexOutOfBoundsException();
+            }
             ms.setVisited(true);
             Visited[ms.getRow()][ms.getCol()] = true;
         }
