@@ -19,25 +19,13 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         if(SearchableMaze == null){
             return null;
         }
-
-        // Symbolizes that we have reached the end point
-        boolean flagFound = false;
-
         //Get the start and end point of the maze
         AState start =SearchableMaze.getStart();
         AState end =SearchableMaze.getEnd();
-
         if(start == null || end == null ) {
             return null;
         }
-        if(!(start instanceof  MazeState) ||  !(end instanceof  MazeState)){
-            return null;
-    }
 
-        //We know that the type of StartMaze and EndMaze is MazeState
-        if(((MazeState)end).getRow() < 0  || ((MazeState)start).getRow() < 0 || ((MazeState)start).getCol() < 0 || ((MazeState)end).getCol() < 0){
-            return null;
-        }
         //set first point as visited
         SearchableMaze.startSearch(start);
         //Adds the first point of the maze
@@ -59,7 +47,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     {//if the neighbor was not visited
                         if (!SearchableMaze.getStateAsVisited(currNeighbor))
                         {//set it as visited
-                            SearchableMaze.setStateAsVisited(currNeighbor);
+                            try {
+                                SearchableMaze.setStateAsVisited(currNeighbor);
+                            }catch (IndexOutOfBoundsException e) {return null;}
                             currNeighbor.setParent(current);
                             //insert to the stack
                             nodesQueue.add(currNeighbor);

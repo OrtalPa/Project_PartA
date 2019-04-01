@@ -50,7 +50,7 @@ public class Maze {
      * The function returns the length of the rows
      * @return  int
      */
-    public int getRowLength(){
+    public int getNumberOfRows(){
         return m_maze.length;
     }
 
@@ -59,7 +59,7 @@ public class Maze {
      * The function returns the length of the columns
      * @return int
      */
-    public int getColLength(){
+    public int getNumberOfColumns(){
 
         return m_maze[0].length;
     }
@@ -70,7 +70,7 @@ public class Maze {
      * @return int value of the cell
      */
     public int getValue(int row,int col){
-        if(row >= this.getRowLength() || col >= this.getColLength() || row <0 || col < 0){
+        if(row >= this.getNumberOfRows() || col >= this.getNumberOfColumns() || row <0 || col < 0){
             return -1;
         }
         return m_maze[row][col];
@@ -104,7 +104,7 @@ public class Maze {
                     s = s + m_maze[i][j];
             }
             s = s + "}";
-            if (i!=getRowLength()-1)
+            if (i!= getNumberOfRows()-1)
                 s = s + ",\n";
             else
                 s = s +"\n";

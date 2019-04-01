@@ -13,30 +13,31 @@ public class MyMazeGenerator  extends AMazeGenerator{
     {
         private int m_iRow;
         private int m_iColumn;
-
-        public Index(int m_iRow, int m_iColumn)
+        protected Index(int row, int col)
         {
-            this.m_iRow = m_iRow;
-            this.m_iColumn = m_iColumn;
+            if (col < 0 || row < 0)
+                return;
+            this.m_iRow = row;
+            this.m_iColumn = col;
         }
     }
 
     /**
      * Generates a maze according to randomized Prim algorithm
-     * @param sizeOfRow the size of the rows of the maze
-     * @param sizeOfColumn the size of the columns of the maze
+     * @param numOfRows the size of the rows of the maze
+     * @param numOfCols the size of the columns of the maze
      * @return a Maze object
      */
     @Override
-    public Maze generate(int sizeOfRow, int sizeOfColumn)
+    public Maze generate(int numOfRows, int numOfCols)
     {
         //If one of the values of the row or column is negative or 0 we will not allow to create a maze
-        if(sizeOfRow < 0 ||  sizeOfColumn < 0){
+        if(numOfRows < 0 ||  numOfCols < 0){
             return null;
         }
         //Start with a Grid full of Cells in state Blocked
-        int[][] maze = new int[sizeOfRow][sizeOfColumn];
-        for (int i = 0; i < sizeOfRow; i++) {
+        int[][] maze = new int[numOfRows][numOfCols];
+        for (int i = 0; i < numOfRows; i++) {
             Arrays.fill(maze[i],1);
         }
         //create an empty list of frontier cells
@@ -44,8 +45,8 @@ public class MyMazeGenerator  extends AMazeGenerator{
 
         Random randomGenerator = new Random();
         //pick a random cell
-        int selectedRow = randomGenerator.nextInt(sizeOfRow);
-        int selectedCol = randomGenerator.nextInt(sizeOfColumn);
+        int selectedRow = randomGenerator.nextInt(numOfRows);
+        int selectedCol = randomGenerator.nextInt(numOfCols);
         Position start = new Position(selectedRow,selectedCol);
         Position end = null; //end position will change at the end of the while loop
 
