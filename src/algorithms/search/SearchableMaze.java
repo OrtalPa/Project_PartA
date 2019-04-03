@@ -32,8 +32,6 @@ public class SearchableMaze implements  ISearchable{
             start  = new MazeState(rowstart,colstart);
             setToFalse(row, col);
         }
-
-
     }
 
     @Override

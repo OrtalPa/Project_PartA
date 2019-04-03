@@ -54,9 +54,10 @@ public class Main {
 
 
 
-        Maze maze = generateMaze(5,5);
+        Maze maze = generateMaze(1000,1000);
 
-        System.out.println(maze);
+        print(maze);
+       // System.out.println(maze);
 
         Solution sol = searchMaze(new DepthFirstSearch(), maze);
 
@@ -74,7 +75,20 @@ public class Main {
 
     }
 
+    private static void print (Maze maze) {
+        for (int i = 0; i < maze.getNumberOfRows(); i++) {
+            for (int j = 0; j < maze.getNumberOfColumns(); j++) {
+                if (i == maze.getStartPosition().getRowIndex() && j == maze.getStartPosition().getColumnIndex()) {//startPosition
+                    System.out.print(" " + "\u001B[44m" + " ");
+                } else if (i ==  maze.getGoalPosition().getRowIndex() && j == maze.getGoalPosition().getColumnIndex()) {//goalPosition
+                    System.out.print(" " + "\u001B[44m" + " ");
+                } else if (maze.getValue(i,j) == 1) System.out.print(" " + "\u001B[45m" + " ");
+                else System.out.print(" " + "\u001B[107m" + " ");
+            }
+            System.out.println(" " + "\u001B[107m");
+        }
 
+    }
 
     private static Solution searchMaze(ASearchingAlgorithm searchingAlgorithm, Maze maze)
 
