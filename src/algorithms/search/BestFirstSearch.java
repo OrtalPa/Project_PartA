@@ -33,22 +33,36 @@ public class BestFirstSearch extends ASearchingAlgorithm {
         Comparator<AState> Comparator = new Comparator<AState>() {
             @Override
             public int compare(AState s1, AState s2){
-                if(s1 instanceof  MazeState &&  s2 instanceof  MazeState){
-                    int costS1 = Math.abs(((MazeState)s1).getRow() - ((MazeState)EndMaze).getRow())+ Math.abs(((MazeState)s1).getCol() - ((MazeState)EndMaze).getCol());
-                    int costS2 = Math.abs(((MazeState)s2).getRow() - ((MazeState)EndMaze).getRow())+ Math.abs(((MazeState)s2).getCol() - ((MazeState)EndMaze).getCol());
-                    if(costS1 == costS2){
-                        return 0;
-                    }
-                    if(costS1 > costS2){
-                        return 1;
-                    }
-                    if(costS1 < costS2){
-                        return -1;
-                    }
+            if(s1 instanceof MazeState && s2 instanceof MazeState){
+                int costS1 = Math.abs(((MazeState)s1).getRow() - ((MazeState)EndMaze).getRow())+ Math.abs(((MazeState)s1).getCol() - ((MazeState)EndMaze).getCol());
+                int costS2 = Math.abs(((MazeState)s2).getRow() - ((MazeState)EndMaze).getRow())+ Math.abs(((MazeState)s2).getCol() - ((MazeState)EndMaze).getCol());
+                if(costS1 == costS2){
+                    return 0;
+                }
+                if(costS1 > costS2){
+                    return 1;
+                }
+                if(costS1 < costS2){
+                    return -1;
                 }
                 return 0;
+            }//if
+            else{
+                if(s1.getCost() > s2.getCost()){
+                    return 1;
+                }
+                else if(s1.getCost() == s2.getCost()){
+                    return 0;
+                }
+                return -1;
+
+            }//else
+
             }
+
         };
+
+
 
 
         nodeList = new PriorityQueue(Comparator);

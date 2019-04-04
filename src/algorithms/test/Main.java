@@ -54,10 +54,10 @@ public class Main {
 
 
 
-        Maze maze = generateMaze(1000,1000);
+        Maze maze = generateMaze(10,10);
 
-        print(maze);
-       // System.out.println(maze);
+       // print(maze);
+        System.out.println(maze);
 
         Solution sol = searchMaze(new DepthFirstSearch(), maze);
 

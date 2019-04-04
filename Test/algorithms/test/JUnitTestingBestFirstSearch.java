@@ -26,9 +26,9 @@ class JUnitTestingBestFirstSearch {
         assertEquals(BestFirstSearch.solve(null),null);
     }
 
-    /**
-     * The department SearchableMaze receives an empty maze(null) and the solution should return a list of empty nodes == null
-     */
+
+    /*
+    The department SearchableMaze receives an empty maze(null) and the solution should return a list of empty nodes == null
     @Test
     void solveMazwNull() {
 
@@ -38,10 +38,10 @@ class JUnitTestingBestFirstSearch {
         assertNull(BestFirstSearch.solve(SearchableMaze));
 
     }
+*/
 
-    /**
-     * The department SearchableMaze receives an empty maze(null) and the solution should return a list of empty nodes == null
-     */
+    /*
+    The department SearchableMaze receives an empty maze(null) and the solution should return a list of empty nodes == null
     @Test
     void solveMazwPonitIllegal() {
         int[][] ArrayMaze = {{0,0},{1,0}};
@@ -50,6 +50,20 @@ class JUnitTestingBestFirstSearch {
         //The AssertNull() method means "a passed parameter must be null": if it is not null then the test case fails.
         assertNull(BestFirstSearch.solve(SearchableMaze));
     }
+*/
+
+    /**
+     * Maze check with negative row and column values
+     */
+    @Test
+    void solveMazwIllegal() {
+        MyMazeGenerator MyMazeGenerator = new MyMazeGenerator();
+        Maze maze = MyMazeGenerator.generate(-3/*rows*/, -6/*columns*/);
+        SearchableMaze SearchableMaze = new SearchableMaze(maze);
+        //The AssertNull() method means "a passed parameter must be null": if it is not null then the test case fails.
+        assertNotNull(BestFirstSearch.solve(SearchableMaze));
+    }
+
 
     /**
      * The test checks that the time to solve the labyrinth is not more than a minute

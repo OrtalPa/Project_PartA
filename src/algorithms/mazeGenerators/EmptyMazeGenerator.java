@@ -14,6 +14,16 @@ public class EmptyMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int row, int column) {
 
+        //Default values
+        if(row < 0){
+            row = 10;
+
+        }
+
+        //Default values
+        if(column < 0){
+            column = 10;
+        }
         //Checks whether the numbers are positive
         if(row >= 0 && column >= 0){
             Position start  = new Position(0,0);

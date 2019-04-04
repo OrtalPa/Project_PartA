@@ -31,10 +31,17 @@ public class MyMazeGenerator  extends AMazeGenerator{
     @Override
     public Maze generate(int numOfRows, int numOfCols)
     {
-        //If one of the values of the row or column is negative or 0 we will not allow to create a maze
-        if(numOfRows < 0 ||  numOfCols < 0){
-            return null;
+        //Default values
+        if(numOfRows < 0){
+            numOfRows = 10;
+
         }
+
+        //Default values
+        if(numOfCols < 0){
+            numOfCols = 10;
+        }
+
         //Start with a Grid full of Cells in state Blocked
         int[][] maze = new int[numOfRows][numOfCols];
         for (int i = 0; i < numOfRows; i++) {

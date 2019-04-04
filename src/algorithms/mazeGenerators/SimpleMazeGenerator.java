@@ -7,8 +7,15 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int row, int column) {
 
-        if(row < 0 || column < 0 ){
-            return null;
+        //Default values
+        if(row < 0){
+            row = 10;
+
+        }
+
+        //Default values
+        if(column < 0){
+            column = 10;
         }
 
         /*
