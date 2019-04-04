@@ -1,9 +1,7 @@
 package algorithms.search;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.PriorityQueue;
+
+import java.util.*;
 
 /**
  * The department represents the algorithm that aims to find the shortest path between the starting point
@@ -11,13 +9,89 @@ import java.util.PriorityQueue;
  */
 public class BestFirstSearch extends ASearchingAlgorithm {
 
-    PriorityQueue<AState> nodeList;
+    protected PriorityQueue<AState> Open;
+    protected HashMap<AState,AState> Close;
 
 
     public  BestFirstSearch(){
         super();
+        Close = new HashMap();
     }
 
+    public Solution solve(ISearchable SearchableMaze) {
+
+        if (SearchableMaze == null) {
+            return null;
+        }
+        AState Start = SearchableMaze.getStart();
+        AState End = SearchableMaze.getEnd();
+        if (Start == null || End == null) {
+            return null;
+        }
+
+
+        Open = new PriorityQueue();
+
+        Start.setParent(null);
+        Start.setCost(0);
+        Open.add(Start);
+        countNodes++;
+
+        //IF OPEN is empty THEN Exit
+        while(Open.size() > 0){
+            //Take from OPEN the node n with the best score, and move it to CLOSED.
+            AState current = Open.remove();
+            Close.put(current,current);
+            //System.out.println(current.getCost() + " cost Of Neighbors " + current.toString());
+
+            //IF n is the goal state
+            if(current.equals(End)){
+                //return  the solution by tracing the path from the goal node to n
+                return new Solution(current);
+            }
+            else{
+                //Expand node n by getting his successors
+                ArrayList<AState> Neighbors = SearchableMaze.getAllPossibleStates(current);
+                //FOR each successor s:
+                while(Neighbors.size() > 0){
+                    AState NeighborsCurrent = Neighbors.remove(0);
+                    //IF s is in not in CLOSE continue
+                    if(!Close.containsKey(NeighborsCurrent)){
+                        //IF s is not in OPEN
+                        if(!Open.contains(NeighborsCurrent)){
+                            //apply the cost of arrival to s node
+                            NeighborsCurrent.setCost(NeighborsCurrent.getCost() + current.getCost());
+                            //update s parent node to be n
+                            NeighborsCurrent.setParent(current);
+                            //add s to OPEN
+                            //System.out.println(NeighborsCurrent.getCost() + "cost Of Neighbors " + NeighborsCurrent.toString());
+                            Open.add(NeighborsCurrent);
+                            countNodes++;
+                        }//not open
+                    }//if not close
+                    else{
+                        AState InClose =Close.get(NeighborsCurrent);
+                      //ELSE IF this new path shorter then previous one
+                      if(InClose.getCost() > NeighborsCurrent.getCost() + current.getCost()){
+                          //System.out.println(NeighborsCurrent.getCost() + "cost Of Neighbors " + NeighborsCurrent.toString());
+
+                          //update s with the shortest path
+                          InClose.setCost(NeighborsCurrent.getCost() + current.getCost());
+
+                          //add to open if its not there
+                          if(!Open.contains(InClose)){
+                              Open.add(NeighborsCurrent);
+                          }
+
+                      }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /*
     @Override
     public Solution solve(ISearchable SearchableMaze) {
 
@@ -61,9 +135,6 @@ public class BestFirstSearch extends ASearchingAlgorithm {
             }
 
         };
-
-
-
 
         nodeList = new PriorityQueue(Comparator);
 
@@ -115,6 +186,8 @@ public class BestFirstSearch extends ASearchingAlgorithm {
 
 
     }
+
+    */
 
 
 

@@ -2,24 +2,18 @@ package algorithms.test;
 
 
 
+
 import algorithms.mazeGenerators.Maze;
 
 import algorithms.mazeGenerators.MyMazeGenerator;
 
+import algorithms.mazeGenerators.Position;
 import algorithms.mazeGenerators.SimpleMazeGenerator;
 
 import algorithms.search.*;
 
 
-
-import java.util.ArrayList;
-
-import java.util.List;
-
-import java.util.PriorityQueue;
-
-import java.util.Stack;
-
+import java.util.*;
 
 
 public class Main {
@@ -50,26 +44,24 @@ public class Main {
 
         //testRuntimeParentsArray();
 
+        //testRuntimeHash();
+        //testRuntimeHashMap();
+        //testRuntime();
 
+        Maze maze = generateMaze(10,1);
 
+        //print(maze);
+        //System.out.println(maze);
+       Solution sol = searchMaze(new DepthFirstSearch(), maze);
 
+        //printSolution(sol);
+         sol = searchMaze(new BreadthFirstSearch(), maze);
 
-        Maze maze = generateMaze(10,10);
+       // printSolution(sol);
 
-       // print(maze);
-        System.out.println(maze);
+       sol =  searchMaze(new BestFirstSearch(), maze);
 
-        Solution sol = searchMaze(new DepthFirstSearch(), maze);
-
-        printSolution(sol);
-
-        sol = searchMaze(new BreadthFirstSearch(), maze);
-
-        printSolution(sol);
-
-        sol = searchMaze(new BestFirstSearch(), maze);
-
-        printSolution(sol);
+       // printSolution(sol);
 
 
 
@@ -184,7 +176,6 @@ public class Main {
     private static void testRuntime() {
 
 
-
         long time = System.nanoTime();
 
         Stack<Integer> test = new Stack<>();
@@ -203,12 +194,56 @@ public class Main {
 
         System.out.println("time to pop: "+ (System.nanoTime() -  time));
 
+    }
 
+
+    private static void testRuntimeHash() {
+        long time = System.nanoTime();
+
+        Hashtable<AState,AState> VisitedNodes = new Hashtable();
+
+        System.out.println("time to create Hashtable: "+ (System.nanoTime() -  time));
+
+        time = System.nanoTime();
+
+        AState s1 = new MazeState(0,0);
+        VisitedNodes.put(s1,s1);
+
+        System.out.println("time to add: "+ (System.nanoTime() -  time));
+
+        time = System.nanoTime();
+
+        VisitedNodes.contains(s1);
+
+        System.out.println("time to contains: "+ (System.nanoTime() -  time));
 
 
 
     }
 
+    private static void testRuntimeHashMap() {
+        long time = System.nanoTime();
+
+        HashMap<AState,AState> VisitedNodes = new HashMap();
+
+        System.out.println("time to create HashtableMAP: "+ (System.nanoTime() -  time));
+
+        time = System.nanoTime();
+
+        AState s1 = new MazeState(0,0);
+        VisitedNodes.put(s1,s1);
+
+        System.out.println("time to add in HashMAP: "+ (System.nanoTime() -  time));
+
+        time = System.nanoTime();
+
+        VisitedNodes.containsKey(s1);
+
+        System.out.println("time to contains in HashMAP: "+ (System.nanoTime() -  time));
+
+
+
+    }
 
 
 

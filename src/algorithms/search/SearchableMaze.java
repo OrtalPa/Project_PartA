@@ -1,6 +1,8 @@
 package algorithms.search;
 
+
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ public class SearchableMaze implements  ISearchable{
      */
     public SearchableMaze(Maze maze) {
 
-        if(maze != null){
+        if(maze != null && maze.getNumberOfColumns() > 0 && maze.getNumberOfRows() > 0){
             this.maze = maze;
             int row = maze.getNumberOfRows();
             int col = maze.getNumberOfColumns();
@@ -29,6 +31,21 @@ public class SearchableMaze implements  ISearchable{
             end  = new MazeState(rowend,colend);
             int colstart = maze.getStartPosition().getColumnIndex();
             int rowstart = maze.getStartPosition().getRowIndex();
+            start  = new MazeState(rowstart,colstart);
+            setToFalse(row, col);
+        }
+
+        else{
+            int[][] arrayMaze = {{0,1,1,1} , {0,1,1,1,},{0,0,1,1},{1,0,0,0}};
+            Maze mazeNew = new Maze(arrayMaze,new Position(0,0),new Position(3,3));
+            this.maze = mazeNew;
+            int row = mazeNew.getNumberOfRows();
+            int col = mazeNew.getNumberOfColumns();
+            int colend  = mazeNew.getGoalPosition().getColumnIndex();
+            int rowend  = mazeNew.getGoalPosition().getRowIndex();
+            end  = new MazeState(rowend,colend);
+            int colstart = mazeNew.getStartPosition().getColumnIndex();
+            int rowstart = mazeNew.getStartPosition().getRowIndex();
             start  = new MazeState(rowstart,colstart);
             setToFalse(row, col);
         }

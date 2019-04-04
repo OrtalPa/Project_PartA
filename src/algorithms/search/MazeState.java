@@ -1,5 +1,8 @@
 package algorithms.search;
 
+
+import java.util.Objects;
+
 /**
  * A department that inherits ASstate and its role in stabilizing a specific maze that will help
  * us solve the problem.
@@ -32,7 +35,6 @@ public class MazeState extends  AState {
     }
 
 
-
     /**
      * Returns the index of the row
      * @return
@@ -48,19 +50,6 @@ public class MazeState extends  AState {
         return col;
     }
 
-
-
-    /**
-     *
-     * @param parent the parents to set for the state
-     */
-    @Override
-    public void setParent(AState parent) {
-        if (parent instanceof MazeState) {
-            this.parent = parent;
-        }
-
-    }
 
     /**
      * A function that compares two points according to the indexes of the row and the column
@@ -78,6 +67,20 @@ public class MazeState extends  AState {
     }
 
 
+    /**
+     * Function hash
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 23;
+        hash = hash * 31 + row;
+        hash = hash * 31 + col;
+        return hash;
+
+
+
+    }
 
     /**
      * A function that compares two points according to their cost

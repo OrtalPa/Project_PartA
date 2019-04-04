@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+
 /**
  * An abstract department responsible for making mazes
  */

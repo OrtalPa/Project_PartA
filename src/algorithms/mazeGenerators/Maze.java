@@ -4,6 +4,7 @@ package algorithms.mazeGenerators;
 /**
  * This class represents a maze
  */
+
 public class Maze {
 
     private int[][] m_maze;

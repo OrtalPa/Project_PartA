@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+
 import java.util.Random;
 
 public class SimpleMazeGenerator extends AMazeGenerator {

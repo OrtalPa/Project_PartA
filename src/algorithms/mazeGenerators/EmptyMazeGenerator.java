@@ -3,6 +3,7 @@ package algorithms.mazeGenerators;
 /**
  * This class creates an empty maze with no walls
  */
+
 public class EmptyMazeGenerator extends AMazeGenerator {
 
     /**

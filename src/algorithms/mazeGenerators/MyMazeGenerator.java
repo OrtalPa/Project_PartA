@@ -1,6 +1,7 @@
 package algorithms.mazeGenerators;
 
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -41,6 +42,12 @@ public class MyMazeGenerator  extends AMazeGenerator{
         if(numOfCols < 0){
             numOfCols = 10;
         }
+
+        if (numOfRows < 4 && numOfCols < 4) {
+            //Complete
+
+        }
+
 
         //Start with a Grid full of Cells in state Blocked
         int[][] maze = new int[numOfRows][numOfCols];
