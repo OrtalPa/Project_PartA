@@ -115,3 +115,4 @@ class JUnitTestingBestFirstSearch {
         assertEquals(BestFirstSearch.getName(),"Best First Search");
     }
 }
+

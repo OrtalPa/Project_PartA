@@ -12,25 +12,18 @@ import java.util.Objects;
 public abstract class AState implements  Comparable<AState>{
 
     protected  AState parent; //the parent of the state
-    protected boolean m_bVisited; //true if the state was visited before
     protected int cost;
 
     public AState()
     {
-        m_bVisited = false;
         parent = null;
         cost = 10;
     }
     public AState(int cost)
     {
-        m_bVisited = false;
         parent = null;
-        if(cost == 10 || cost == 0 || cost == 15){
-            this.cost = cost;
-        }
-        else{
-            cost = 10;
-        }
+        this.cost = cost;
+
 
     }
 
@@ -60,10 +53,6 @@ public abstract class AState implements  Comparable<AState>{
     }
 
 
-    public void setVisited(boolean visited)
-    {
-        m_bVisited = visited;
-    }
 
     /**
      * A function which compares two modes

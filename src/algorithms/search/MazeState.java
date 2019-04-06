@@ -1,8 +1,6 @@
 package algorithms.search;
 
 
-import java.util.Objects;
-
 /**
  * A department that inherits ASstate and its role in stabilizing a specific maze that will help
  * us solve the problem.

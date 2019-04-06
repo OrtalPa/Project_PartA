@@ -32,20 +32,22 @@ public class MyMazeGenerator  extends AMazeGenerator{
     @Override
     public Maze generate(int numOfRows, int numOfCols)
     {
+
         //Default values
-        if(numOfRows < 0){
+        if(numOfRows <= 0){
             numOfRows = 10;
 
         }
 
         //Default values
-        if(numOfCols < 0){
+        if(numOfCols <= 0){
             numOfCols = 10;
         }
 
-        if (numOfRows < 4 && numOfCols < 4) {
-            //Complete
-
+        if ((numOfRows ==2 && numOfCols ==2) || (numOfRows ==1 && numOfCols ==1) ||(numOfRows ==0 && numOfCols ==1) ||(numOfRows ==1 && numOfCols ==0)
+    ||(numOfRows ==1 && numOfCols ==2) ||(numOfRows ==2 && numOfCols ==1) ||(numOfRows ==2 && numOfCols ==3 ) ||(numOfRows ==3 && numOfCols ==2 )) {
+            int[][] arrayMaze = {{0,1,1,1} , {0,1,1,1,},{0,0,1,1},{1,0,0,0}};
+            return new Maze(arrayMaze,new Position(0,0),new Position(3,3));
         }
 
 
