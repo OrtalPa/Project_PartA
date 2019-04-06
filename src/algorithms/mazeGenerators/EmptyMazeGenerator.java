@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+
 /**
  * This class creates an empty maze with no walls
  */

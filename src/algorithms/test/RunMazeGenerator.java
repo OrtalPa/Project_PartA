@@ -1,6 +1,7 @@
 package algorithms.test;
 
 
+
 import algorithms.mazeGenerators.*;
 
 /**

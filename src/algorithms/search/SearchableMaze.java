@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class SearchableMaze implements  ISearchable{
 
+
     AState start;
     AState end;
     Maze maze;

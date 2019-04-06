@@ -1,6 +1,7 @@
 package algorithms.mazeGenerators;
 
 
+
 /**
  * This class represents a maze
  */

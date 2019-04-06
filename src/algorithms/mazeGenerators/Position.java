@@ -1,6 +1,7 @@
 package algorithms.mazeGenerators;
 
 
+
 /**
  * A class representing a point in the maze by row and column index
  */

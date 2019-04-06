@@ -1,5 +1,6 @@
 package algorithms.test;
 
+
 import algorithms.mazeGenerators.*;
 import algorithms.search.BestFirstSearch;
 import algorithms.search.SearchableMaze;

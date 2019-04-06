@@ -1,6 +1,7 @@
 package algorithms.search;
 
 
+
 /**
  * A department that inherits ASstate and its role in stabilizing a specific maze that will help
  * us solve the problem.
