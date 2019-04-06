@@ -1,6 +1,8 @@
 package algorithms.mazeGenerators;
 
 
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -31,10 +33,25 @@ public class MyMazeGenerator  extends AMazeGenerator{
     @Override
     public Maze generate(int numOfRows, int numOfCols)
     {
-        //If one of the values of the row or column is negative or 0 we will not allow to create a maze
-        if(numOfRows < 0 ||  numOfCols < 0){
-            return null;
+
+        //Default values
+        if(numOfRows <= 0){
+            numOfRows = 10;
+
         }
+
+        //Default values
+        if(numOfCols <= 0){
+            numOfCols = 10;
+        }
+
+        if ((numOfRows ==2 && numOfCols ==2) || (numOfRows ==1 && numOfCols ==1) ||(numOfRows ==0 && numOfCols ==1) ||(numOfRows ==1 && numOfCols ==0)
+    ||(numOfRows ==1 && numOfCols ==2) ||(numOfRows ==2 && numOfCols ==1) ||(numOfRows ==2 && numOfCols ==3 ) ||(numOfRows ==3 && numOfCols ==2 )) {
+            int[][] arrayMaze = {{0,1,1,1} , {0,1,1,1,},{0,0,1,1},{1,0,0,0}};
+            return new Maze(arrayMaze,new Position(0,0),new Position(3,3));
+        }
+
+
         //Start with a Grid full of Cells in state Blocked
         int[][] maze = new int[numOfRows][numOfCols];
         for (int i = 0; i < numOfRows; i++) {

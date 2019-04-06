@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+
+
 /**
  * An interface that is responsible for making mazes
  */

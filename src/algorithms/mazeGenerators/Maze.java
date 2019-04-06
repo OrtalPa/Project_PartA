@@ -1,9 +1,11 @@
 package algorithms.mazeGenerators;
 
 
+
 /**
  * This class represents a maze
  */
+
 public class Maze {
 
     private int[][] m_maze;
@@ -19,12 +21,18 @@ public class Maze {
     public Maze(int[][] m_maze, Position m_start, Position m_end)
     {
         //The integrity of the input
-        if(m_maze != null && m_start.getColumnIndex() <  m_maze[0].length && m_end.getColumnIndex()< m_maze[0].length
+        if(m_start.getColumnIndex() <  m_maze[0].length && m_end.getColumnIndex()< m_maze[0].length
         && m_start.getRowIndex() < m_maze.length &&  m_end.getRowIndex() < m_maze.length
         && m_start.getRowIndex() >= 0 &&  m_end.getRowIndex() >=0 && m_start.getColumnIndex() >=0 && m_end.getColumnIndex() >=0 ){
             this.m_maze = m_maze;
             this.m_start = m_start;
             this.m_end = m_end;
+        }
+        else{
+            int[][] arrayMaze = {{0,1,1,1} , {0,1,1,1,},{0,0,1,1},{1,0,0,0}};
+            m_maze =arrayMaze;
+            m_start = new Position(0,0);
+            m_end = new Position(3,3);
         }
 
     }

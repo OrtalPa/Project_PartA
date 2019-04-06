@@ -1,5 +1,7 @@
 package algorithms.search;
 
+
+
 import algorithms.mazeGenerators.Maze;
 
 import java.util.ArrayList;
@@ -26,24 +28,6 @@ public interface ISearchable {
      */
     AState getEnd();
 
-    /**
-     * a function to start the search properly with the starting point
-      * @param startState the starting state of the search
-     */
-    void startSearch(AState startState);
 
-//---------------------------------------------------------------------------------------//
 
-    /**
-     * Sets a certain state as visited in the current search
-     * @param state
-     */
-    void setStateAsVisited(AState state);
-
-    /**
-     * Returns whether the state was visited in the current search
-     * @param state
-     * @return visited or not
-     */
-    boolean getStateAsVisited(AState state);
 }
