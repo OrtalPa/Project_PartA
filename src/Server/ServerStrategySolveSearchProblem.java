@@ -55,7 +55,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
             }
             else {
                 //save the maze
-                FileOutputStream mazeFile = new FileOutputStream((new File(tempFolder + "/s" + count)));
+                FileOutputStream mazeFile = new FileOutputStream((new File(tempFolder + "/m" + count)));
                 mazeFile.write(mazeFromClient.toByteArray());
                 mazeFile.close();
                 //solve
@@ -70,7 +70,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy{
             //send solution
             ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
             toClient.flush();
-            toClient.writeObject(solution);
+         //   toClient.writeObject(solution);
 
 
         } catch (IOException e) {
