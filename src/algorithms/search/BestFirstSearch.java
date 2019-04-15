@@ -47,7 +47,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
 
             //IF n is the goal state
             if(current.equals(End)){
-                System.out.println(current.getCost() + " cost Of Neighbors ");
+                //System.out.println(current.getCost() + " cost Of Neighbors ");
                 //return  the solution by tracing the path from the goal node to n
                 return new Solution(current);
             }

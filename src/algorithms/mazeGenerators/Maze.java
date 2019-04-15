@@ -1,6 +1,7 @@
 package algorithms.mazeGenerators;
 
 
+import java.util.ArrayList;
 
 /**
  * This class represents a maze
@@ -36,6 +37,38 @@ public class Maze {
         }
 
     }
+
+    /**
+     *
+     * @param arrayByte
+     */
+    public Maze(byte[] arrayByte){
+
+
+
+
+
+
+    }
+
+    /**
+     * A function that transforms the array into a one - dimensional array of byte
+     * @return byte[]
+     */
+    public byte[] toByteArray(){
+
+        byte[] ans = new byte[this.getNumberOfRows()*this.getNumberOfColumns()];
+        int count = 0;
+        for (int i = 0; i < m_maze.length; i++) {
+            for (int j = 0; j < m_maze[0].length; j++) {
+                Integer integer = m_maze[i][j];
+                ans[count] =(byte)integer.byteValue();
+                count++;
+            }//for2
+        }//for1
+        return ans;
+    }
+
 
     /**
      * Returns the starting point

@@ -1,5 +1,87 @@
 package IO;
 
-public class MyCompressorOutputStream {
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+
+public class MyCompressorOutputStream extends OutputStream {
+
+    protected OutputStream out;
+
+    public MyCompressorOutputStream(OutputStream  OutputStream ){
+        if(OutputStream != null){
+            out =OutputStream;
+        }
+    }//System.MyCompressorOutputStream
+
+
+    @Override
+    public void write(int b) throws IOException {
+        out.write(b);
+    }
+
+    //optional
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        //super.write(b);
+        ArrayList<Byte> temp = new ArrayList<>();
+        byte[] mazeSpread = b;
+        int numFound = mazeSpread[0];
+        int countUntil256 =1;
+        int i = 1;
+        byte zero = 0;
+        byte numAdd = 0;
+
+        //For a case where the first number found is not zero
+        if(numFound != 0){
+            temp.add(zero);
+        }
+
+        //Move all array
+        while (i < mazeSpread.length){
+            if(mazeSpread[i] == numFound){
+                if(countUntil256 <255){
+                    i++; //increase the index in array
+                    countUntil256++; // increase the num of appearance
+
+                    //If we reached the end of the array
+                    if(i == mazeSpread.length){
+                        numAdd = (byte)(countUntil256 -128);
+                        temp.add(numAdd);
+                    }
+                }
+                else{
+                    numAdd = (byte)(countUntil256 -128);
+                    temp.add(numAdd); //Add the value
+                    temp.add(zero);// add zero to the different value
+                    countUntil256=1;
+                    i++; //increase the index in array
+
+                    //If we reached the end of the array
+                    if(i == mazeSpread.length){
+                        numAdd = (byte)(countUntil256 -128);
+                        temp.add(numAdd);
+                    }
+                }
+            }//not different
+            else{
+                i++;
+                numAdd = (byte)(countUntil256 -128);
+                temp.add(numAdd);
+                numFound = mazeSpread[i];
+                countUntil256 = 1;
+                if(i == mazeSpread.length){
+                    numAdd = (byte)(countUntil256 -128);
+                    temp.add(numAdd);
+                }
+            }
+        }//i < sizeOfArray
+
+        for (int j = 0; j < temp.size(); j++) {
+            write(temp.get(j));
+        }
+
+    }
 
 }
