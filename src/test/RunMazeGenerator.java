@@ -1,4 +1,4 @@
-package algorithms.test;
+package test;
 
 
 

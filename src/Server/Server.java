@@ -7,7 +7,6 @@ import java.net.SocketTimeoutException;
 
 public class Server {
 
-
     private int port;
     private int listeningIntervalMS;
     private IServerStrategy serverStrategy;
@@ -15,6 +14,7 @@ public class Server {
 
 
     public Server(int port, int listeningIntervalMS, IServerStrategy serverStrategy) {
+        stop = false;
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
@@ -49,7 +49,9 @@ public class Server {
         }
     }
 
-
+    public void stop (){
+        stop = true;
+    }
 
 
 }
