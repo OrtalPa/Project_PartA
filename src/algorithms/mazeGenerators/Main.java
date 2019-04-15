@@ -4,11 +4,20 @@ public class Main {
 
     public static void main (String args[]){
 
-        testByteArray();
+        //testByteArray();
         //testByteArray256();
-
+        testToCconstructor();
     }
 
+    private static void testToCconstructor() {
+        byte[] array = {-1,-1,-1,-1,0,-1,-1,-1,-1,1,-1,-1,-1,-1,1,-1,-1,-1,-1,0,-1,-1,-1,0,3,0,0,0,0,3,1,0,1,0,1,1,1,0,0};
+        Maze Maze = new Maze(array);
+        System.out.println(Maze.getGoalPosition()); //end (1,0)
+        System.out.println(Maze.getStartPosition()); //start(0,1)
+        System.out.println(Maze.getNumberOfRows()); //row(3)
+        System.out.println(Maze.getNumberOfColumns()); //col(3)
+        Maze.print();
+    }
 
 
     public static void testByteArray(){
@@ -31,6 +40,9 @@ public class Main {
         System.out.println("");
 
     }//testOfSpreadingTheArray
+
+
+
 
   /*  public static void testByteArray256(){
         System.out.println("Test TO Byte Array 256:");

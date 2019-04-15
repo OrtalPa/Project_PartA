@@ -44,11 +44,57 @@ public class Maze {
      */
     public Maze(byte[] arrayByte){
 
+        //start point
+        int[] rowStart = new int[5];
+        for (int i = 0; i < 5; i++) {
+            rowStart[i] = arrayByte[i];
+        }
+       int rowStartnum =unitesTheNumber(rowStart);
 
+        int[] colStart = new int[5];
+        for (int i = 0; i < 5; i++) {
+            colStart[i] = arrayByte[i+5];
+        }
+        int colStartnum =unitesTheNumber(colStart);
+        m_start = new Position(rowStartnum,colStartnum);
 
+        //end point
+        int[] rowEnd = new int[5];
+        for (int i = 0; i < 5; i++) {
+            rowEnd[i] = arrayByte[i+10];
+        }
+        int rowEndnum =unitesTheNumber(rowEnd);
 
+        int[] colEnd = new int[5];
+        for (int i = 0; i < 5; i++) {
+            colEnd[i] = arrayByte[i+15];
+        }
+        int colEndnum =unitesTheNumber(colEnd);
+        m_end = new Position(rowEndnum,colEndnum);
 
+        //row Number
+        int[] rowNum = new int[5];
+        for (int i = 0; i < 5; i++) {
+            rowNum[i] = arrayByte[i+20];
+        }
+        int rowNUmberOfMaze =unitesTheNumber(rowNum);
 
+        //col Number
+        int[] colNum = new int[5];
+        for (int i = 0; i < 5; i++) {
+            colNum[i] = arrayByte[i+25];
+        }
+        int colNUmberOfMaze =unitesTheNumber(colNum);
+
+        m_maze = new int[rowNUmberOfMaze][colNUmberOfMaze];
+
+        int counter =30;
+        for (int i = 0; i < m_maze.length; i++) {
+            for (int j = 0; j < m_maze[0].length; j++) {
+                m_maze[i][j] = arrayByte[counter];
+                counter++;
+            }
+        }
     }
 
     /**
@@ -56,18 +102,105 @@ public class Maze {
      * @return byte[]
      */
     public byte[] toByteArray(){
+        byte[] ans = new byte[this.getNumberOfRows()*this.getNumberOfColumns() +30];
+        Integer integer = 0;
+        int[] temp = null;
 
-        byte[] ans = new byte[this.getNumberOfRows()*this.getNumberOfColumns()];
-        int count = 0;
+        int RowStart   =m_start.getRowIndex();//0-4 start
+        temp = SeparatesTheמumber(RowStart);
+        for (int i = 0; i <5 ; i++) {
+            integer = temp[i];
+            ans[i] = integer.byteValue();
+        }
+
+        int ColStart  = m_start.getColumnIndex();//5-9 start
+        temp = SeparatesTheמumber(ColStart);
+        int k=0;
+        for (int i = 5; i <10 ; i++) {
+            integer = temp[k];
+            k++;
+            ans[i] = integer.byteValue();
+        }
+
+        int RowEnd   =m_end.getRowIndex();//10-14 end
+        temp = SeparatesTheמumber(RowEnd);
+        k=0;
+        for (int i = 10; i <15 ; i++) {
+            integer = temp[k];
+            k++;
+            ans[i] = integer.byteValue();
+        }
+
+        int ColEnd  = m_end.getColumnIndex();//15-19 end
+        k=0;
+        temp = SeparatesTheמumber(ColEnd);
+        for (int i = 15; i <20 ; i++) {
+            integer = temp[k];
+            k++;
+            ans[i] = integer.byteValue();
+        }
+
+        int numOfRow = this.getNumberOfRows();//20-24 numOfRow
+        k=0;
+        temp = SeparatesTheמumber(numOfRow);
+        for (int i = 20 ;i <25 ; i++) {
+            integer = temp[k];
+            k++;
+            ans[i] = integer.byteValue();
+        }
+
+        int numOfcOL = this.getNumberOfColumns(); // 25 -29 numOfCol
+        temp = SeparatesTheמumber(numOfcOL);
+        k=0;
+        for (int i = 25 ;i <30 ; i++) {
+            integer = temp[k];
+            k++;
+            ans[i] = integer.byteValue();
+        }
+
+        int count = 30;
         for (int i = 0; i < m_maze.length; i++) {
             for (int j = 0; j < m_maze[0].length; j++) {
-                Integer integer = m_maze[i][j];
-                ans[count] =(byte)integer.byteValue();
+                Integer integerMaze = m_maze[i][j];
+                ans[count] =(byte)integerMaze.byteValue();
                 count++;
             }//for2
         }//for1
         return ans;
     }
+
+    private int[] SeparatesTheמumber(int num){
+        int[] ans = new int[5];
+        for (int i = 0; i <5 ; i++) {
+            ans[i] = -1;
+        }
+        int count = 4;
+        while(num > 0){
+            ans[count] = num%10;
+            count--;
+            num = num/10;
+
+        }
+        return ans;
+    }
+
+    /**
+     * A function that unites the number
+     */
+    private int unitesTheNumber(int[] array){
+        int num = 0;
+        int count = 10000;
+        for (int i = 0; i < 5; i++) {
+            if(array[i] != -1){
+                num = num + array[i]*count;
+            }
+            count =count/10;
+
+        }
+        return num;
+
+    }
+
 
 
     /**
