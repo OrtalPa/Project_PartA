@@ -38,6 +38,22 @@ public class Maze {
     }
 
     /**
+     *
+     * @param arrayByte
+     */
+    public Maze(byte[] arrayByte){
+
+
+    }
+
+    public byte[] toByteArray(){
+
+
+
+        return null;
+    }
+
+    /**
      * Returns the starting point
      * @return start position
      */
