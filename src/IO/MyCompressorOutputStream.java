@@ -11,10 +11,9 @@ public class MyCompressorOutputStream extends OutputStream {
     public MyCompressorOutputStream(OutputStream  OutputStream ){
         super();
         if(OutputStream != null){
-            out =OutputStream;
+            out = OutputStream;
         }
     }//System.MyCompressorOutputStream
-
 
     @Override
     public void write(int b) throws IOException {
@@ -45,12 +44,6 @@ public class MyCompressorOutputStream extends OutputStream {
                 if(countUntil256 <255){
                     i++; //increase the index in array
                     countUntil256++; // increase the num of appearance
-
-                    //If we reached the end of the array
-                    if(i == mazeSpread.length){
-                        numAdd = (byte)(countUntil256 -128);
-                        temp.add(numAdd);
-                    }
                 }
                 else{
                     numAdd = (byte)(countUntil256 -128);
@@ -58,12 +51,6 @@ public class MyCompressorOutputStream extends OutputStream {
                     temp.add(zero);// add zero to the different value
                     countUntil256=1;
                     i++; //increase the index in array
-
-                    //If we reached the end of the array
-                    if(i == mazeSpread.length){
-                        numAdd = (byte)(countUntil256 -128);
-                        temp.add(numAdd);
-                    }
                 }
             }//not different
             else{
@@ -73,10 +60,11 @@ public class MyCompressorOutputStream extends OutputStream {
                 numFound = mazeSpread[i];
                 countUntil256 = 1;
                 i++;
-                if(i == mazeSpread.length){
-                    numAdd = (byte)(countUntil256 -128);
-                    temp.add(numAdd);
-                }
+            }
+            //If we reached the end of the array
+            if(i == mazeSpread.length){
+                numAdd = (byte)(countUntil256 -128);
+                temp.add(numAdd);
             }
         }//i < sizeOfArray
 
