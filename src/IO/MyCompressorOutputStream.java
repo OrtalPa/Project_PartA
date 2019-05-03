@@ -29,8 +29,8 @@ public class MyCompressorOutputStream extends OutputStream {
         ArrayList<Byte> temp = new ArrayList<>();
         byte[] mazeSpread = b;
         int numFound = mazeSpread[30];
-        int countUntil256 =1;
-        int i = 31;
+        int countUntil256 =0;
+        int i = 30;
         byte zero = 0;
         byte numAdd = 0;
 
@@ -67,11 +67,12 @@ public class MyCompressorOutputStream extends OutputStream {
                 }
             }//not different
             else{
-                i++;
+
                 numAdd = (byte)(countUntil256 -128);
                 temp.add(numAdd);
                 numFound = mazeSpread[i];
                 countUntil256 = 1;
+                i++;
                 if(i == mazeSpread.length){
                     numAdd = (byte)(countUntil256 -128);
                     temp.add(numAdd);
@@ -80,7 +81,7 @@ public class MyCompressorOutputStream extends OutputStream {
         }//i < sizeOfArray
 
         //Write the dimensions of the maze and start and end point
-        for (int j = 0; j < 29; j++) {
+        for (int j = 0; j < 30; j++) {
             write(b[j]);
         }
 

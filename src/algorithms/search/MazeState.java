@@ -107,6 +107,6 @@ public class MazeState extends  AState {
      */
     @Override
     public String toString() {
-        return "{ " + row + ", " + col +"}";
+        return "{" + row + "," + col +"}";
     }
 }

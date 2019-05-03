@@ -1,8 +1,6 @@
 package algorithms.mazeGenerators;
 
 
-import java.util.ArrayList;
-
 /**
  * This class represents a maze
  */
@@ -107,14 +105,14 @@ public class Maze {
         int[] temp = null;
 
         int RowStart   =m_start.getRowIndex();//0-4 start
-        temp = SeparatesTheמumber(RowStart);
+        temp = SeparatesTheNumber(RowStart);
         for (int i = 0; i <5 ; i++) {
             integer = temp[i];
             ans[i] = integer.byteValue();
         }
 
         int ColStart  = m_start.getColumnIndex();//5-9 start
-        temp = SeparatesTheמumber(ColStart);
+        temp = SeparatesTheNumber(ColStart);
         int k=0;
         for (int i = 5; i <10 ; i++) {
             integer = temp[k];
@@ -123,7 +121,7 @@ public class Maze {
         }
 
         int RowEnd   =m_end.getRowIndex();//10-14 end
-        temp = SeparatesTheמumber(RowEnd);
+        temp = SeparatesTheNumber(RowEnd);
         k=0;
         for (int i = 10; i <15 ; i++) {
             integer = temp[k];
@@ -133,7 +131,7 @@ public class Maze {
 
         int ColEnd  = m_end.getColumnIndex();//15-19 end
         k=0;
-        temp = SeparatesTheמumber(ColEnd);
+        temp = SeparatesTheNumber(ColEnd);
         for (int i = 15; i <20 ; i++) {
             integer = temp[k];
             k++;
@@ -142,7 +140,7 @@ public class Maze {
 
         int numOfRow = this.getNumberOfRows();//20-24 numOfRow
         k=0;
-        temp = SeparatesTheמumber(numOfRow);
+        temp = SeparatesTheNumber(numOfRow);
         for (int i = 20 ;i <25 ; i++) {
             integer = temp[k];
             k++;
@@ -150,7 +148,7 @@ public class Maze {
         }
 
         int numOfcOL = this.getNumberOfColumns(); // 25 -29 numOfCol
-        temp = SeparatesTheמumber(numOfcOL);
+        temp = SeparatesTheNumber(numOfcOL);
         k=0;
         for (int i = 25 ;i <30 ; i++) {
             integer = temp[k];
@@ -169,17 +167,24 @@ public class Maze {
         return ans;
     }
 
-    private int[] SeparatesTheמumber(int num){
+    private int[] SeparatesTheNumber(int num){
         int[] ans = new int[5];
         for (int i = 0; i <5 ; i++) {
             ans[i] = -1;
         }
         int count = 4;
+        if(num == 0){
+            ans[0] =-1;
+            ans[2] =-1;
+            ans[2] =-1;
+            ans[3] =-1;
+            ans[4] =0;
+            return ans;
+        }
         while(num > 0){
             ans[count] = num%10;
             count--;
             num = num/10;
-
         }
         return ans;
     }
