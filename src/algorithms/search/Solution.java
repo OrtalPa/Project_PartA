@@ -3,10 +3,11 @@ package algorithms.search;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class Solution {
+public class Solution implements Serializable {
 
 
     protected ArrayList<AState> pathSolution;
