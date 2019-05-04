@@ -19,6 +19,8 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
     public void serverStrategy(InputStream inputStream, OutputStream outputStream) {
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inputStream);
+            ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
+            toClient.flush();
             Object obFromClient = fromClient.readObject();
             if (obFromClient == null || !(obFromClient instanceof Maze)) return;
             //setting variables
@@ -44,15 +46,15 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
                 Files.write(file, mazeFromClient.toByteArray());
                 //solve
                 SearchableMaze searchableMaze = new SearchableMaze(mazeFromClient);
-                ASearchingAlgorithm searcher = Configurations.getAlgorithm();
-                Solution solution = searcher.solve(searchableMaze);
+                //ASearchingAlgorithm searcher = Configurations.getAlgorithm();
+                ASearchingAlgorithm searcher = new BestFirstSearch();
+                solToReturn = searcher.solve(searchableMaze);
                 //save solution
-                writeSolution(solution, tempFolder, count);
+                writeSolution(solToReturn, tempFolder, count);
                 count++;//increase counter
             }
             //send solution
-            ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
-            toClient.flush();
+
             toClient.writeObject(solToReturn);
         } catch (IOException e) {
             e.printStackTrace();

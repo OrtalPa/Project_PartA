@@ -1,11 +1,13 @@
 package algorithms.mazeGenerators;
 
 
+import java.io.Serializable;
+
 /**
  * This class represents a maze
  */
 
-public class Maze {
+public class Maze implements Serializable {
 
     private int[][] m_maze;
     private Position m_start;

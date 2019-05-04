@@ -16,33 +16,37 @@ public class RunCommunicateWithServers {
 
     public static void main(String[] args) {
         //Initializing servers
-        Server mazeGeneratingServer = new Server(5400, 1000, new
-                ServerStrategyGenerateMaze());
-        Server solveSearchProblemServer = new Server(5401, 1000, new
-                ServerStrategySolveSearchProblem());
-        //Server stringReverserServer = new Server(5402, 1000, new
-        // ServerStrategyStringReverser());
-        //Starting servers
-      //  solveSearchProblemServer.start();
+        Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
+
+        /*Starting servers*/
         mazeGeneratingServer.start();
+        //solveSearchProblemServer.start();
         //stringReverserServer.start();
-        //Communicating with servers
+
+        /*Communicating with servers*/
+
+        CommunicateWithServer_MazeGenerating(50,50);
+        CommunicateWithServer_MazeGenerating(111,111);
+        CommunicateWithServer_MazeGenerating(76,80);
+        CommunicateWithServer_MazeGenerating(25,80);
+        //CommunicateWithServer_MazeGenerating(0,0);
+        CommunicateWithServer_MazeGenerating(100,90);
+        CommunicateWithServer_MazeGenerating(20,20);
 
 
-        CommunicateWithServer_MazeGenerating();
-      //  CommunicateWithServer_SolveSearchProblem();
-
-
-
+        //CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
-        //Stopping all servers
+
+        /*Stopping all servers*/
         mazeGeneratingServer.stop();
-       // solveSearchProblemServer.stop();
+        //solveSearchProblemServer.stop();
         //stringReverserServer.stop();
     }
 
 
-    private static void CommunicateWithServer_MazeGenerating() {
+    private static void CommunicateWithServer_MazeGenerating(int x, int y) {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 @Override
@@ -52,14 +56,14 @@ public class RunCommunicateWithServers {
                             toServer.flush();
                             ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
 
-                            int[] mazeDimensions = new int[]{50, 50};
+                            int[] mazeDimensions = new int[]{x, y};
                             toServer.writeObject(mazeDimensions); //send maze dimensions to server
                             toServer.flush();
                             byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                             InputStream is = new MyDecompressorInputStream(new
                                     ByteArrayInputStream(compressedMaze));
                             //CHANGE SIZE ACCORDING TO YOU MAZE SIZE
-                            byte[] decompressedMaze = new byte[1000];
+                            byte[] decompressedMaze = new byte[x*y+30];
                             //allocating byte[] for the decompressed maze -
                             is.read(decompressedMaze); //Fill decompressedMaze with bytes
                             Maze maze = new Maze(decompressedMaze);

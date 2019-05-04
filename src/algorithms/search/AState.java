@@ -4,13 +4,14 @@ package algorithms.search;
 
 import jdk.internal.dynalink.beans.StaticClass;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * An abstract class that represents a problem situation of a particular problem that we wish to solve
  */
 //ADDD
-public abstract class AState implements  Comparable<AState>{
+public abstract class AState implements Serializable, Comparable<AState>{
 
     protected  AState parent; //the parent of the state
     protected int cost;

@@ -1,6 +1,8 @@
 package Server;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -22,6 +24,7 @@ public class Server {
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
         pool = Executors.newFixedThreadPool(4);
+        //pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
 
     }
 
@@ -42,6 +45,9 @@ public class Server {
                 try {
                     Socket clientSocket = serverSocket.accept(); // Accepts client
                     System.out.println(String.format("Client excepted: %s", clientSocket));
+                    /*new Thread(()->{ //handles the client in a new thread, according to the thread pool
+                        handleClient(clientSocket);
+                    }).start();*/
                     pool.execute(()->{ //handles the client in a new thread, according to the thread pool
                         handleClient(clientSocket);
                     });
@@ -49,6 +55,7 @@ public class Server {
                     System.out.println("Socket Timeout - No clients are waiting!");
                 }
             }
+            pool.shutdown();
             serverSocket.close();
         } catch (IOException e) {
             System.out.println("IOException");
@@ -57,10 +64,7 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            System.out.println("Handling client");
             serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            clientSocket.getInputStream().close();
-            clientSocket.getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {
             System.out.println("IOException - Error handing client!");

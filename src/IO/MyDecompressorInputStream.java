@@ -44,10 +44,9 @@ public class MyDecompressorInputStream extends InputStream {
         }
         for (int i = 30; i < b.length; i++) {
                 int number = CompressArray[i];
-                if(number != 0){
-                    //Returns the number to its original size
-                    number = number + 128;
-                }
+                //if(number !=-128){
+                number = number + 128;
+                //}
                 while(number > 0){
                     if(numCuurent == 0){
                         //Write the relevant value to the list temp
@@ -72,9 +71,12 @@ public class MyDecompressorInputStream extends InputStream {
                 }
         }
 
-        for (int i = 0; i < temp.size(); i++) {
+        for (int i = 0; i < b.length; i++) {//temp.size???????????????????
             b[i] = temp.get(i);
+            //System.out.println(b[i]);
         }
+
+
         return 0;
     }
 
