@@ -3,8 +3,8 @@ package Server;
 import java.io.*;
 
 import IO.MyCompressorOutputStream;
-import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.*;
+
 
 public class ServerStrategyGenerateMaze implements IServerStrategy {
 
@@ -13,15 +13,17 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
   //      System.out.println("in server strategy");
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inputStream);
-//            System.out.println("passed input stream");
+            ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
+            toClient.flush();
+            ByteArrayOutputStream toClientArray = new ByteArrayOutputStream();
             int[] array = (int[])fromClient.readObject();
             int numOfRow = array[0];
             int numOfCol= array[1];
-            Maze maze = (new MyMazeGenerator()).generate(numOfRow,numOfCol);
-            byte[] byteArray = maze.toByteArray(); //maze is compressed
-            MyCompressorOutputStream compressorOutputStream = new MyCompressorOutputStream(outputStream);
-            compressorOutputStream.flush();
-            compressorOutputStream.write(byteArray);
+            Maze maze = Configurations.getMazeGenerator().generate(numOfRow,numOfCol);
+            MyCompressorOutputStream compressorOutputStream = new MyCompressorOutputStream(toClientArray);
+            compressorOutputStream.write(maze.toByteArray());
+            toClient.writeObject(toClientArray.toByteArray());
+            toClient.flush();
 
         } catch (IOException e) {
             e.printStackTrace();
