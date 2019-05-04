@@ -54,6 +54,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         int countSteps = 0;
         maze[i][j] = -1;
         //the path will have at least 3 steps
+        Position end = new Position(startRow,startCol); //default value
         while (countSteps < 4  || !onFrame(i,j,row,column))
         {
             do
@@ -71,14 +72,10 @@ public class SimpleMazeGenerator extends AMazeGenerator {
             if (i != startRow && j != startCol) {
                 maze[i][j] = -1;
                 countSteps++;
+                end = new Position(i,j);
+                //last position will be the end position
             }
         }
-
-        if (!withinMaze(i,j,row,column))
-        {
-
-        }
-        Position end = new Position(i,j);
 
         //    testMaze(maze, start, end);
 
@@ -106,7 +103,6 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                 }
             }
         }
-
         return new Maze(maze,start,end);
     }
 
