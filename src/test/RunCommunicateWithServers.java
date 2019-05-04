@@ -48,21 +48,18 @@ public class RunCommunicateWithServers {
                 @Override
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                         try {
-                            ObjectOutputStream toServer = new
-                                    ObjectOutputStream(outToServer);
-                            System.out.println("in line 52");
-                            ObjectInputStream fromServer = new
-                                    ObjectInputStream(inFromServer);
+                            ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                             toServer.flush();
+                            ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+
                             int[] mazeDimensions = new int[]{50, 50};
                             toServer.writeObject(mazeDimensions); //send maze dimensions to server
                             toServer.flush();
-                            byte[] compressedMaze = (byte[])
-                                    fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
+                            byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                             InputStream is = new MyDecompressorInputStream(new
                                     ByteArrayInputStream(compressedMaze));
                             //CHANGE SIZE ACCORDING TO YOU MAZE SIZE
-                            byte[] decompressedMaze = new byte[1000  ];
+                            byte[] decompressedMaze = new byte[1000];
                             //allocating byte[] for the decompressed maze -
                             is.read(decompressedMaze); //Fill decompressedMaze with bytes
                             Maze maze = new Maze(decompressedMaze);

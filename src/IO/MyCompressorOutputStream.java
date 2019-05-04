@@ -1,6 +1,7 @@
 package IO;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
@@ -9,10 +10,9 @@ public class MyCompressorOutputStream extends OutputStream {
     protected OutputStream out;
 
     public MyCompressorOutputStream(OutputStream  OutputStream ){
-        super();
-        if(OutputStream != null){
-            out = OutputStream;
-        }
+        //super();
+        out = OutputStream;
+
     }//System.MyCompressorOutputStream
 
     @Override
@@ -20,7 +20,7 @@ public class MyCompressorOutputStream extends OutputStream {
         out.write(b);
     }
 
-    //optional
+
 
     @Override
     public void write(byte[] b) throws IOException {

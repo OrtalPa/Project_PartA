@@ -1,10 +1,7 @@
 package Server;
 
-import IO.MyCompressorOutputStream;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.*;
-import sun.misc.IOUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -25,7 +22,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
             Object obFromClient = fromClient.readObject();
             if (obFromClient == null || !(obFromClient instanceof Maze)) return;
             //setting variables
-            Maze mazeFromClient = (Maze) obFromClient;
+            Maze mazeFromClient = (Maze)obFromClient;
             String tempFolder = System.getProperty("java.io.tmpdir");
             Solution solToReturn = null;
             //search if the maze exists
@@ -47,7 +44,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
                 Files.write(file, mazeFromClient.toByteArray());
                 //solve
                 SearchableMaze searchableMaze = new SearchableMaze(mazeFromClient);
-                BestFirstSearch searcher = new BestFirstSearch();
+                ASearchingAlgorithm searcher = Configurations.getAlgorithm();
                 Solution solution = searcher.solve(searchableMaze);
                 //save solution
                 writeSolution(solution, tempFolder, count);

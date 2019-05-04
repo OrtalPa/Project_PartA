@@ -27,13 +27,17 @@ public class MyDecompressorInputStream extends InputStream {
     //optional
     @Override
     public int read(byte[] b) throws IOException {
+        //Create an array the size of the array of b
         byte[] CompressArray = new byte[b.length];
+        //Enter the array Compress that we received in CompressArray
         in.read(CompressArray);
 
         byte zero = 0;
         byte one = 1;
         numCuurent = 0;
 
+        //Initialization of a reference list that will contain the uncompressed maze
+        //Income of maze dimensions and start and exit point
         ArrayList<Byte> temp = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             temp.add(CompressArray[i]);
@@ -41,19 +45,25 @@ public class MyDecompressorInputStream extends InputStream {
         for (int i = 30; i < b.length; i++) {
                 int number = CompressArray[i];
                 if(number != 0){
+                    //Returns the number to its original size
                     number = number + 128;
                 }
                 while(number > 0){
                     if(numCuurent == 0){
+                        //Write the relevant value to the list temp
                         temp.add(zero);
+                        // decrease the value
                         number--;
                     }
                     else if(numCuurent == 1){
+                        //Write the relevant value to the list temp
                         temp.add(one);
+                        //decrease the value
                         number--;
                     }
 
                 }
+                //Changes the value to write now
                 if(numCuurent == 1){
                     numCuurent = 0;
                 }

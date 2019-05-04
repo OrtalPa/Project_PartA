@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Server {
 
@@ -15,13 +16,13 @@ public class Server {
     private volatile boolean stop;
     private ExecutorService pool;
 
-
     public Server(int port, int listeningIntervalMS, IServerStrategy serverStrategy) {
         stop = false;
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
         pool = Executors.newFixedThreadPool(4);
+
     }
 
     public void start(){
