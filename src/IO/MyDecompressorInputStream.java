@@ -13,13 +13,10 @@ public class MyDecompressorInputStream extends InputStream {
     public MyDecompressorInputStream(InputStream InputStream){
         super();
         if(InputStream != null){
-            in =InputStream;
+            in = InputStream;
             numCuurent =0;
-
         }
-
     }
-
 
     @Override
     public int read() throws IOException {

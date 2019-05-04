@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
 
@@ -11,6 +13,7 @@ public class Server {
     private int listeningIntervalMS;
     private IServerStrategy serverStrategy;
     private volatile boolean stop;
+    private ExecutorService pool;
 
 
     public Server(int port, int listeningIntervalMS, IServerStrategy serverStrategy) {
@@ -18,9 +21,16 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
+        pool = Executors.newFixedThreadPool(4);
     }
 
-    public void start() {
+    public void start(){
+        new Thread (() -> {
+            runServer();
+        }).start();
+    }
+
+    public void runServer() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -31,14 +41,9 @@ public class Server {
                 try {
                     Socket clientSocket = serverSocket.accept(); // Accepts client
                     System.out.println(String.format("Client excepted: %s", clientSocket));
-                    try {
-                        serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-                        clientSocket.getInputStream().close();
-                        clientSocket.getOutputStream().close();
-                        clientSocket.close();
-                    } catch (IOException e) {
-                        System.out.println("IOException - Error handing client!");
-                    }
+                    pool.execute(()->{ //handles the client in a new thread, according to the thread pool
+                        handleClient(clientSocket);
+                    });
                 } catch (SocketTimeoutException e) {
                     System.out.println("Socket Timeout - No clients are waiting!");
                 }
@@ -49,8 +54,20 @@ public class Server {
         }
     }
 
+    private void handleClient(Socket clientSocket) {
+        try {
+            System.out.println("Handling client");
+            serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            clientSocket.getInputStream().close();
+            clientSocket.getOutputStream().close();
+            clientSocket.close();
+        } catch (IOException e) {
+            System.out.println("IOException - Error handing client!");
+        }
+    }
+
     public void stop (){
-        stop = true;
+        stop = true; //will stop the server from listening to clients
     }
 
 

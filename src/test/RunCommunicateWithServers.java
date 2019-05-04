@@ -23,21 +23,21 @@ public class RunCommunicateWithServers {
         //Server stringReverserServer = new Server(5402, 1000, new
         // ServerStrategyStringReverser());
         //Starting servers
-        solveSearchProblemServer.start();
+      //  solveSearchProblemServer.start();
         mazeGeneratingServer.start();
         //stringReverserServer.start();
         //Communicating with servers
 
 
         CommunicateWithServer_MazeGenerating();
-        CommunicateWithServer_SolveSearchProblem();
+      //  CommunicateWithServer_SolveSearchProblem();
 
 
 
         //CommunicateWithServer_StringReverser();
         //Stopping all servers
         mazeGeneratingServer.stop();
-        solveSearchProblemServer.stop();
+       // solveSearchProblemServer.stop();
         //stringReverserServer.stop();
     }
 
@@ -50,6 +50,7 @@ public class RunCommunicateWithServers {
                         try {
                             ObjectOutputStream toServer = new
                                     ObjectOutputStream(outToServer);
+                            System.out.println("in line 52");
                             ObjectInputStream fromServer = new
                                     ObjectInputStream(inFromServer);
                             toServer.flush();
@@ -71,9 +72,6 @@ public class RunCommunicateWithServers {
                         }
                     }
                 });
-
-
-
             client.communicateWithServer();
         } catch (UnknownHostException e) {
             e.printStackTrace();

@@ -46,7 +46,8 @@ public class MyMazeGenerator  extends AMazeGenerator{
         }
 
         if ((numOfRows ==2 && numOfCols ==2) || (numOfRows ==1 && numOfCols ==1) ||(numOfRows ==0 && numOfCols ==1) ||(numOfRows ==1 && numOfCols ==0)
-    ||(numOfRows ==1 && numOfCols ==2) ||(numOfRows ==2 && numOfCols ==1) ||(numOfRows ==2 && numOfCols ==3 ) ||(numOfRows ==3 && numOfCols ==2 )) {
+    ||(numOfRows ==1 && numOfCols ==2) ||(numOfRows ==2 && numOfCols ==1) ||(numOfRows ==2 && numOfCols ==3 ) ||(numOfRows ==3 && numOfCols ==2 )
+                ||(numOfRows ==3 && numOfCols ==3 )) {
             int[][] arrayMaze = {{0,1,1,1} , {0,1,1,1,},{0,0,1,1},{1,0,0,0}};
             return new Maze(arrayMaze,new Position(0,0),new Position(3,3));
         }
@@ -73,6 +74,7 @@ public class MyMazeGenerator  extends AMazeGenerator{
         //compute its frontier cells and Insert them to the list
         frontierCells.addAll(computeFrontierCells(maze, selectedRow, selectedCol,1));
 
+       // System.out.println("frontier cells is empty? "+frontierCells.isEmpty());
         while (!frontierCells.isEmpty())
         {
             //Pick a random frontier cell from the list of frontier cells
