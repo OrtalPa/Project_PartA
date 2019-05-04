@@ -5,12 +5,12 @@ import algorithms.search.ASearchingAlgorithm;
 import algorithms.search.BestFirstSearch;
 import algorithms.search.BreadthFirstSearch;
 import algorithms.search.DepthFirstSearch;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
+import java.net.URL;
 import java.util.Properties;
 
- public class Configurations {
+ public  class Configurations {
 
     //fountain that Loading the configuration file
      private static String getPropValues(String property) throws FileNotFoundException {
