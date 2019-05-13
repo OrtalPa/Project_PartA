@@ -21,6 +21,8 @@ public class MyCompressorOutputStream extends OutputStream {
         out.write(b);
     }
 
+
+
     @Override
     public void write(byte[] b) throws IOException {
         //super.write(b);
@@ -66,19 +68,39 @@ public class MyCompressorOutputStream extends OutputStream {
             }
         }//i < sizeOfArray
 
-        //Write the dimensions of the maze and start and end point
+        byte[] input = new byte[30+temp.size()];
         for (int j = 0; j < 30; j++) {
-            write(b[j]);
-            System.out.print(b[j]);
+            input[j] = b[j];
+            //System.out.println( j+ " "+input[j]);
         }
-        System.out.println();
 
         for (int j = 0; j < temp.size(); j++) {
-            write(temp.get(j));
-            System.out.print(temp.get(j));
+            input[j+30] = temp.get(j);
+            //System.out.println(j+30+ " " +input[j+30]);
         }
-        System.out.println();
-        //System.out.println(temp.toString());
+
+
+        byte[] output = new byte[30+temp.size()];
+        Deflater deflater = new Deflater();
+        deflater.setInput(input);
+        deflater.finish();
+        int compressedDataLength = deflater.deflate(output);
+        deflater.end();
+
+        byte[] finalArray = new byte[compressedDataLength];
+        int k=0;
+       for(k=0; k<compressedDataLength;k++){
+            finalArray[k]=output[k];
+        }
+        //Write the dimensions of the maze and start and end point
+        for (int j = 0; j < finalArray.length; j++) {
+            write(finalArray[j]);
+            //System.out.print(finalArray[j]);
+        }
+        //System.out.println();
+
+        out.flush();
+        //out.close();
 
 
     }
