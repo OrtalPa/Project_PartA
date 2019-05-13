@@ -24,9 +24,6 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
-       /* pool = Executors.newFixedThreadPool(4);*/
-        pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
-
     }
 
     public void start(){
@@ -36,6 +33,7 @@ public class Server {
     }
 
     public void runServer() {
+        pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
