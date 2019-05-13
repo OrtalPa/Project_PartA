@@ -72,8 +72,8 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
                     System.out.println(Thread.currentThread().getId()+" finished writing maze, count=="+count);
                     //solve
                     SearchableMaze searchableMaze = new SearchableMaze(mazeFromClient);
-                    //ASearchingAlgorithm searcher = Configurations.getAlgorithm();
-                    ASearchingAlgorithm searcher = new BestFirstSearch();
+                    ASearchingAlgorithm searcher = Configurations.getAlgorithm();
+                    //ASearchingAlgorithm searcher = new BestFirstSearch();
                     solToReturn = searcher.solve(searchableMaze);
                     //save solution
                     writeSolution(solToReturn, tempFolder, count);

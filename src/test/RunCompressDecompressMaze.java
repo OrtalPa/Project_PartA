@@ -37,7 +37,7 @@ public class RunCompressDecompressMaze {
                     }
                     byte savedMazeBytes[] = new byte[0];
                     try {
-//read maze from file
+                    //read maze from file
                         InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFileName));
                         savedMazeBytes = new byte[maze.toByteArray().length];
                         in.read(savedMazeBytes);
@@ -59,7 +59,7 @@ public class RunCompressDecompressMaze {
                     }
 //maze should be equal to loadedMaze
                 }
-                j = (int) (600 + Math.random() * 100);
+                j = (int) (10 + Math.random() * 100);
             }
         }
     }

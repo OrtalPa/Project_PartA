@@ -26,7 +26,7 @@ public class RunCommunicateWithServers {
         //stringReverserServer.start();
 
         /*Communicating with servers*/
-        solveSavedMazesParallel();
+       // solveSavedMazesParallel();
 
 
         /*Thread t1 = new Thread1();
@@ -64,8 +64,9 @@ public class RunCommunicateWithServers {
         CommunicateWithServer_MazeGenerating(20,20);
 
 */
-      //  CommunicateWithServer_SolveSearchProblem();
-        //CommunicateWithServer_StringReverser();
+        CommunicateWithServer_MazeGenerating();
+        CommunicateWithServer_SolveSearchProblem();
+       // CommunicateWithServer_StringReverser();
 
         /*Stopping all servers*/
         mazeGeneratingServer.stop();
