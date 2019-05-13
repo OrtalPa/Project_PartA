@@ -104,7 +104,7 @@ public class MyDecompressorInputStream extends InputStream {
         //The tempo contains all values of the maze with the dimensions
         // Array b contains the values of the maze including the dimensions
         //So their size is the same
-        for (int i = 0; i < b.length; i++) {
+        for (int i = 0; i < b.length && i < temp.size(); i++) {
             b[i] = temp.get(i);
             //System.out.print(b[i]);
         }
