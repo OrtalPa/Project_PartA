@@ -27,15 +27,41 @@ public class RunCommunicateWithServers {
 
         /*Communicating with servers*/
 
+        Thread t1 = new Thread1();
+        t1.start();
+        Thread t2 = new Thread1();
+        t2.start();
+        Thread t3 = new Thread1();
+        t3.start();
+        Thread t4 = new Thread1();
+        t4.start();
+        Thread t5 = new Thread1();
+        t5.start();
+        Thread t6 = new Thread1();
+        t6.start();
+
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
+            t6.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+/*
         CommunicateWithServer_MazeGenerating(50,50);
         CommunicateWithServer_MazeGenerating(111,111);
         CommunicateWithServer_MazeGenerating(76,80);
         CommunicateWithServer_MazeGenerating(25,80);
-        //CommunicateWithServer_MazeGenerating(0,0);
+        //CommunicateWithServer_MazeGenerating(50,20);
         CommunicateWithServer_MazeGenerating(100,90);
         CommunicateWithServer_MazeGenerating(20,20);
 
-
+*/
         //CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
 
@@ -46,7 +72,20 @@ public class RunCommunicateWithServers {
     }
 
 
-    private static void CommunicateWithServer_MazeGenerating(int x, int y) {
+    static class Thread1 extends Thread{
+        public void run(){
+            System.out.println("------------------------------  "+ Thread.currentThread().getId());
+            CommunicateWithServer_MazeGenerating();
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            CommunicateWithServer_SolveSearchProblem();
+
+        }
+    }
+    private static void CommunicateWithServer_MazeGenerating() {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 @Override
@@ -56,14 +95,14 @@ public class RunCommunicateWithServers {
                             toServer.flush();
                             ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
 
-                            int[] mazeDimensions = new int[]{x, y};
+                            int[] mazeDimensions = new int[]{10, 10};
                             toServer.writeObject(mazeDimensions); //send maze dimensions to server
                             toServer.flush();
                             byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                             InputStream is = new MyDecompressorInputStream(new
                                     ByteArrayInputStream(compressedMaze));
                             //CHANGE SIZE ACCORDING TO YOU MAZE SIZE
-                            byte[] decompressedMaze = new byte[x*y+30];
+                            byte[] decompressedMaze = new byte[10*10+30];
                             //allocating byte[] for the decompressed maze -
                             is.read(decompressedMaze); //Fill decompressedMaze with bytes
                             Maze maze = new Maze(decompressedMaze);
@@ -151,3 +190,6 @@ public class RunCommunicateWithServers {
 
 
 }
+
+
+

@@ -9,6 +9,7 @@ import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Server {
 
@@ -23,9 +24,6 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
-        pool = Executors.newFixedThreadPool(4);
-        //pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
-
     }
 
     public void start(){
@@ -35,6 +33,7 @@ public class Server {
     }
 
     public void runServer() {
+        pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -56,6 +55,13 @@ public class Server {
                 }
             }
             pool.shutdown();
+            try{
+                pool.awaitTermination(1, TimeUnit.HOURS);
+            }
+            catch (InterruptedException e){
+                System.out.println("Error await termination for ThreadPool" + e);
+            }
+
             serverSocket.close();
         } catch (IOException e) {
             System.out.println("IOException");
