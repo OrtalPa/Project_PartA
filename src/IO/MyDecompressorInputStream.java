@@ -3,6 +3,8 @@ package IO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 public class MyDecompressorInputStream extends InputStream {
 
@@ -29,6 +31,7 @@ public class MyDecompressorInputStream extends InputStream {
     public int read(byte[] b) throws IOException {
         //Create an array the size of the array of b
         byte[] CompressArray = new byte[b.length];
+
         //Enter the array Compress that we received in CompressArray
         in.read(CompressArray);
 
@@ -44,10 +47,9 @@ public class MyDecompressorInputStream extends InputStream {
         }
         for (int i = 30; i < b.length; i++) {
                 int number = CompressArray[i];
-                if(number != 0){
-                    //Returns the number to its original size
-                    number = number + 128;
-                }
+                //if(number !=-128){
+                number = number + 128;
+                //}
                 while(number > 0){
                     if(numCuurent == 0){
                         //Write the relevant value to the list temp
@@ -72,9 +74,12 @@ public class MyDecompressorInputStream extends InputStream {
                 }
         }
 
-        for (int i = 0; i < temp.size(); i++) {
+        for (int i = 0; i < b.length; i++) {//temp.size???????????????????
             b[i] = temp.get(i);
+            //System.out.println(b[i]);
         }
+
+
         return 0;
     }
 

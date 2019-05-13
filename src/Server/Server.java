@@ -64,10 +64,7 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            // System.out.println("Handling client");
             serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-           // clientSocket.getOutputStream().close();
-           // clientSocket.getInputStream().close();
             clientSocket.close();
         } catch (IOException e) {
             System.out.println("IOException - Error handing client!");

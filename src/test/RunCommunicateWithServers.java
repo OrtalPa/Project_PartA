@@ -1,7 +1,6 @@
 package test;
 
 import Client.*;
-import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.*;
 import algorithms.mazeGenerators.*;
@@ -11,7 +10,6 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class RunCommunicateWithServers {
@@ -28,13 +26,18 @@ public class RunCommunicateWithServers {
         //stringReverserServer.start();
 
         /*Communicating with servers*/
-        //CommunicateWithServer_MazeGenerating(50, 50);
+
+        CommunicateWithServer_MazeGenerating(50,50);
+        CommunicateWithServer_MazeGenerating(111,111);
+        CommunicateWithServer_MazeGenerating(76,80);
+        CommunicateWithServer_MazeGenerating(25,80);
+        //CommunicateWithServer_MazeGenerating(0,0);
+        CommunicateWithServer_MazeGenerating(100,90);
+        CommunicateWithServer_MazeGenerating(20,20);
+
+
         //CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
-
-        //anotherTestMazeGenerating();
-
-
 
         /*Stopping all servers*/
         mazeGeneratingServer.stop();
@@ -42,26 +45,8 @@ public class RunCommunicateWithServers {
         //stringReverserServer.stop();
     }
 
-    public static void anotherTestMazeGenerating() {
-        int j = 10;
-        for (int i = 11; i <= 1000; i += 10) {
-            for (; j <= 1000; j += Math.random() * 100) {
-                int row = i + (int) (Math.random() * 10);
-                System.out.println("row = "+row+", col = "+j);
-                try{
-                    CommunicateWithServer_MazeGenerating(row, j);
-                }catch (Exception e)
-                {
-                    System.out.println(e);
-                }
-            }
-        }
-    }
 
-
-
-
-    private static void CommunicateWithServer_MazeGenerating(int row, int col) {
+    private static void CommunicateWithServer_MazeGenerating(int x, int y) {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 @Override
@@ -70,36 +55,21 @@ public class RunCommunicateWithServers {
                             ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                             toServer.flush();
                             ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
-                            int[] mazeDimensions = new int[]{row, col};
+
+                            int[] mazeDimensions = new int[]{x, y};
                             toServer.writeObject(mazeDimensions); //send maze dimensions to server
                             toServer.flush();
                             byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
                             InputStream is = new MyDecompressorInputStream(new
                                     ByteArrayInputStream(compressedMaze));
                             //CHANGE SIZE ACCORDING TO YOU MAZE SIZE
-                            int numOfRows = row;
-                            int numOfCols = col;
-                            if(numOfRows <= 0)
-                                numOfRows = 10;
-                            //Default values
-                            if(numOfCols <= 0)
-                                numOfCols = 10;
-                            if ((numOfRows ==2 && numOfCols ==2) || (numOfRows ==1 && numOfCols ==1) ||(numOfRows ==0 && numOfCols ==1) ||(numOfRows ==1 && numOfCols ==0)
-                                    ||(numOfRows ==1 && numOfCols ==2) ||(numOfRows ==2 && numOfCols ==1) ||(numOfRows ==2 && numOfCols ==3 ) ||(numOfRows ==3 && numOfCols ==2 )
-                                    ||(numOfRows ==3 && numOfCols ==3 )) {
-                                numOfRows = 3;
-                                numOfCols = 4;
-                            }
-                            byte[] decompressedMaze = new byte[numOfRows*numOfCols+30];
+                            byte[] decompressedMaze = new byte[x*y+30];
                             //allocating byte[] for the decompressed maze -
                             is.read(decompressedMaze); //Fill decompressedMaze with bytes
                             Maze maze = new Maze(decompressedMaze);
-                            if (maze.getNumberOfRows()!=numOfRows || maze.getNumberOfColumns()!=numOfCols)
-                                throw new Exception("Wrong number of rows or columns");
-                            //maze.print();
+                            maze.print();
                         } catch (Exception e) {
-                            //e.printStackTrace();
-                            System.out.println(e);
+                            e.printStackTrace();
                         }
                     }
                 });
