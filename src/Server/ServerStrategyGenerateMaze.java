@@ -19,8 +19,8 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             int[] array = (int[])fromClient.readObject();
             int numOfRow = array[0];
             int numOfCol= array[1];
-            Maze maze = (new MyMazeGenerator()).generate(numOfRow,numOfCol);
-           // Maze maze = Configurations.getMazeGenerator().generate(numOfRow,numOfCol);
+        /*    Maze maze = (new MyMazeGenerator()).generate(numOfRow,numOfCol);*/
+           Maze maze = Configurations.getMazeGenerator().generate(numOfRow,numOfCol);
             MyCompressorOutputStream compressorOutputStream = new MyCompressorOutputStream(toClientArray);
             compressorOutputStream.write(maze.toByteArray());
             toClient.writeObject(toClientArray.toByteArray());

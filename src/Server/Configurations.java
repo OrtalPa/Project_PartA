@@ -5,20 +5,22 @@ import algorithms.search.ASearchingAlgorithm;
 import algorithms.search.BestFirstSearch;
 import algorithms.search.BreadthFirstSearch;
 import algorithms.search.DepthFirstSearch;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Properties;
-
  public  class Configurations {
 
-    //fountain that Loading the configuration file
-     private static String getPropValues(String property) throws FileNotFoundException {
+
+     public static String getPropValues(String property) throws FileNotFoundException {
          InputStream inputStream = null;
          String ans = "";
          try {
              Properties prop = new Properties();
-             inputStream = Configurations.class.getClassLoader().getResourceAsStream("config.properties");
+             inputStream = new FileInputStream("resources/config.properties");
+
 
              if (inputStream != null) {
                  prop.load(inputStream);
@@ -47,6 +49,7 @@ import java.util.Properties;
 
      public static int getNumberOfClients() {
          //default value
+
          int result = 4;
          try {
              String ans = getPropValues("NumberOfClients");
@@ -63,6 +66,7 @@ import java.util.Properties;
 
      public static AMazeGenerator getMazeGenerator() {
          //default value
+
          AMazeGenerator result = new MyMazeGenerator();
          try {
              String ans = getPropValues("MazeGenerators");
@@ -87,7 +91,7 @@ import java.util.Properties;
          //default value
          ASearchingAlgorithm result = new BestFirstSearch();
          try {
-             String ans = getPropValues("MazeGenerators");
+             String ans = getPropValues("Algorithm");
              if (ans.equals("BestFirstSearch")) {
                  result = new BestFirstSearch();
              }

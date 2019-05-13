@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class ServerStrategySolveSearchProblem  implements IServerStrategy {
 
-    private static int count = 0;
+    private int count = 0;
 
     @Override
     public void serverStrategy(InputStream inputStream, OutputStream outputStream) {
@@ -42,7 +42,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
                 solToReturn = returnSolution(i, tempFolder);
             } else {//save and solve:
                 //save the maze
-                Path file = Paths.get(tempFolder + "/m" + count + ".txt");
+                 Path file = Paths.get(tempFolder + "/m" + count + ".txt");
                 Files.write(file, mazeFromClient.toByteArray());
                 //solve
                 SearchableMaze searchableMaze = new SearchableMaze(mazeFromClient);
