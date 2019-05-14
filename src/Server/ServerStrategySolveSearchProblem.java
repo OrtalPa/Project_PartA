@@ -38,7 +38,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
             for (; i < count && !stop; i++) {
                 //Path fileLocation = Paths.get(tempFolder + "/m" + i + ".txt");
                 String fileLocation = tempFolder + "/m" + i + ".txt";
-                System.out.println(Thread.currentThread().getId()+" reading maze from "+fileLocation);
+                //System.out.println(Thread.currentThread().getId()+" reading maze from "+fileLocation);
                 //byte[] currByteArray = Files.readAllBytes(fileLocation);
                 synchronized (this) {
                     InputStream in = new MyDecompressorInputStream(new FileInputStream(fileLocation));
@@ -53,7 +53,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
             //if exists - return solution
             if (stop) {
                 i--;
-                System.out.println(Thread.currentThread().getId()+" found solution: "+i);
+                //System.out.println(Thread.currentThread().getId()+" found solution: "+i);
                 solToReturn = returnSolution(i, tempFolder);
             } else {//save and solve:
                 //save the maze
@@ -61,19 +61,22 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
                     //Path file = Paths.get(tempFolder + "/m" + count + ".txt");
                     //Files.write(file, mazeFromClient.toByteArray());
                     String path = tempFolder + "/m" + count + ".txt";
-                    System.out.println(Thread.currentThread().getId()+" writing maze to "+path);
+                    //System.out.println(Thread.currentThread().getId()+" writing maze to "+path);
                     String file = tempFolder + "/m" + count + ".txt";
+
                     OutputStream out = new MyCompressorOutputStream(new FileOutputStream(file));
                     byte[] toWrite = mazeFromClient.toByteArray();
                     out.write(toWrite);
                     out.flush();
                     out.close();
                     sizes.put(count,toWrite.length);
-                    System.out.println(Thread.currentThread().getId()+" finished writing maze, count=="+count);
+                    //System.out.println(Thread.currentThread().getId()+" finished writing maze, count=="+count);
                     //solve
                     SearchableMaze searchableMaze = new SearchableMaze(mazeFromClient);
+/*
                     ASearchingAlgorithm searcher = Configurations.getAlgorithm();
-                    //ASearchingAlgorithm searcher = new BestFirstSearch();
+*/
+                    ASearchingAlgorithm searcher = new BestFirstSearch();
                     solToReturn = searcher.solve(searchableMaze);
                     //save solution
                     writeSolution(solToReturn, tempFolder, count);
@@ -93,7 +96,7 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
         FileReader fileReader = new FileReader(tempFolder + "/s" + i + ".txt");
         BufferedReader br = new BufferedReader(fileReader);
         MazeState last = null;
-        System.out.println(Thread.currentThread().getId()+" reading sol from "+tempFolder + "/s" + i + ".txt");
+        //System.out.println(Thread.currentThread().getId()+" reading sol from "+tempFolder + "/s" + i + ".txt");
         for (String line; (line = br.readLine()) != null; ) {
             String[] result = line.split(",");
             int x = Integer.parseInt(result[0]);
@@ -104,15 +107,15 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
         }
         fileReader.close();
         br.close();
-        System.out.println(Thread.currentThread().getId()+" finished reading sol from "+tempFolder + "/s" + i + ".txt");
+        //System.out.println(Thread.currentThread().getId()+" finished reading sol from "+tempFolder + "/s" + i + ".txt");
         Solution sol = new Solution(last);
-        System.out.println(Thread.currentThread().getId()+" Solution received "+i+":"+sol);
+        //System.out.println(Thread.currentThread().getId()+" Solution received "+i+":"+sol);
         return sol;
     }
 
     private void writeSolution(Solution solution, String tempFolder, int count) throws IOException {
         Path file = Paths.get(tempFolder + "/s" + count + ".txt");
-        System.out.println(Thread.currentThread().getId()+" writing sol to "+file);
+        //System.out.println(Thread.currentThread().getId()+" writing sol to "+file);
         ArrayList<String> lines = new ArrayList<>();
         ArrayList<AState> ListOfSolution = solution.getSolutionPath();
         for (int i = 0; i < ListOfSolution.size(); i++) {
@@ -120,6 +123,6 @@ public class ServerStrategySolveSearchProblem  implements IServerStrategy {
             lines.add(state.substring(1,state.length()-1));
         }
         Files.write(file, lines, Charset.forName("UTF-8"));
-        System.out.println(Thread.currentThread().getId()+" finished writing sol, count=="+count);
+       // System.out.println(Thread.currentThread().getId()+" finished writing sol, count=="+count);
     }
 }

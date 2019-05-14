@@ -5,11 +5,8 @@ import algorithms.search.ASearchingAlgorithm;
 import algorithms.search.BestFirstSearch;
 import algorithms.search.BreadthFirstSearch;
 import algorithms.search.DepthFirstSearch;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 
 import java.io.*;
-import java.net.URL;
-import java.util.Objects;
 import java.util.Properties;
  public  class Configurations {
 
