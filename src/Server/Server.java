@@ -34,6 +34,7 @@ public class Server {
 
     public void runServer() {
         pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
+         pool = Executors.newFixedThreadPool(4);
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
