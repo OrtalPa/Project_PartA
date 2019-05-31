@@ -34,7 +34,8 @@ public class Server {
 
     public void runServer() {
         pool = Executors.newFixedThreadPool(Configurations.getNumberOfClients());
-         pool = Executors.newFixedThreadPool(4);
+       /*  pool = Executors.newFixedThreadPool(4);*/
+
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -52,7 +53,7 @@ public class Server {
                         handleClient(clientSocket);
                     });
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Socket Timeout - No clients are waiting!");
+                   // System.out.println("Socket Timeout - No clients are waiting!");
                 }
             }
             pool.shutdown();
@@ -60,12 +61,12 @@ public class Server {
                 pool.awaitTermination(1, TimeUnit.HOURS);
             }
             catch (InterruptedException e){
-                System.out.println("Error await termination for ThreadPool" + e);
+               //System.out.println("Error await termination for ThreadPool" + e);
             }
 
             serverSocket.close();
         } catch (IOException e) {
-            System.out.println("IOException");
+            //System.out.println("IOException");
         }
     }
 
@@ -74,7 +75,7 @@ public class Server {
             serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
         } catch (IOException e) {
-            System.out.println("IOException - Error handing client!");
+           // System.out.println("IOException - Error handing client!");
         }
     }
 
