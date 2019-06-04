@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 public class Maze implements Serializable {
 
+
+
     private int[][] m_maze;
     private Position m_start;
     private Position m_end;
@@ -208,6 +210,9 @@ public class Maze implements Serializable {
 
     }
 
+    public int[][] getM_maze() {
+        return m_maze;
+    }
 
 
     /**
@@ -233,6 +238,10 @@ public class Maze implements Serializable {
      */
     public int getNumberOfRows(){
         return m_maze.length;
+    }
+
+    public void setStartPosition(int row, int col){
+        m_start = new Position(row,col);
     }
 
     /**
