@@ -63,7 +63,6 @@ public class Server {
             catch (InterruptedException e){
                //System.out.println("Error await termination for ThreadPool" + e);
             }
-
             serverSocket.close();
         } catch (IOException e) {
             //System.out.println("IOException");
